@@ -19,6 +19,7 @@ Route::get('/command',function(){
 Route::get('/', [\App\Http\Controllers\UserController::class,"indexLogin"])->name('login.index');
 Route::get('/login', [\App\Http\Controllers\UserController::class,"indexLogin"])->name('login.index');
 Route::post('/login', [\App\Http\Controllers\UserController::class,'storeLoginAdmin'])->name('login.store');
+Route::get('/register', [\App\Http\Controllers\UserController::class,'register'])->name('index.register');
 
 
 Route::middleware([\App\Http\Middleware\checkLogin::class])->prefix('/')->group(function () {
@@ -36,5 +37,17 @@ Route::middleware([\App\Http\Middleware\checkLogin::class])->prefix('/')->group(
     Route::get('/detail_khamngoaimat/{id}', [\App\Http\Controllers\HosobenhnhanController::class,'edit_khamngoaimat'])->name('edit.khamngoaimat');
 
     Route::post('/detail_khamngoaimat/{id}', [\App\Http\Controllers\HosobenhnhanController::class,'store_khamngoaimat'])->name('store.khamngoaimat');
+
+    Route::get('/tuvantaichinh/{id}', [\App\Http\Controllers\HosobenhnhanController::class,'edit_tuvantaichinh'])->name('edit.tuvantaichinh');
+    Route::post('/tuvantaichinh/', [\App\Http\Controllers\HosobenhnhanController::class,'store_tuvantaichinh'])->name('store.tuvantaichinh');
+    Route::post('/tuvantaichinh/{id}/', [\App\Http\Controllers\HosobenhnhanController::class,'edit_tuvantaichinh_store'])->name('update.tuvantaichinh');
+    Route::get('/index_thuvientuvan/{id}', [\App\Http\Controllers\HosobenhnhanController::class,'index_thuvientuvan'])->name('index.thuvientuvan');
+    Route::get('/index_image/{id}', [\App\Http\Controllers\HosobenhnhanController::class,'index_image'])->name('index.image');
+    Route::post('/index_image', [\App\Http\Controllers\HosobenhnhanController::class,'store_image'])->name('store.image');
+    Route::get('/quatrinhdieutri/{id}', [\App\Http\Controllers\HosobenhnhanController::class,'index_quatrinhdieutri'])->name('index.quatrinhdieutri');
+    Route::post('/quatrinhdieutri', [\App\Http\Controllers\HosobenhnhanController::class,'store_quatrinhdieutri'])->name('store.quatrinhdieutri');
+    Route::get('/kehoachdieutri/{id}', [\App\Http\Controllers\HosobenhnhanController::class,'index_kehoachdieutri'])->name('index.kehoachdieutri');
+    Route::post('/kehoachdieutri/{id}', [\App\Http\Controllers\HosobenhnhanController::class,'store_kehoachdieutri'])->name('store.kehoachdieutri');
+
 
 });

@@ -20,6 +20,7 @@ class UserSeeder extends Seeder
             'name' => "Viết Thắng",
             'email' => "drvietthang@gmail.com",
             'password' => 'drvietthang',
+            'status' => "2"
         ]);
     }
 }

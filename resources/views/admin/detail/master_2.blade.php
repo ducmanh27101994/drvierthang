@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-
+    <link rel="shortcut icon" type="image/png" href="https://service.egate.global/uploads/avatar/1626947384-c748b32f42adb8b1c59ba992ee88544b1.png"/>
     <title>Dashboard - Dr.VietThang</title>
 
     <!-- Custom fonts for this template-->
@@ -82,6 +82,11 @@
                     <a class="collapse-item" href="{{route('hosobenhnhan.detail', $hosobenhnhan->id)}}">Hành chính</a>
                     <a class="collapse-item" href="{{route('edit.khamtrongmieng', $hosobenhnhan->id)}}">Khám trong miệng</a>
                     <a class="collapse-item" href="{{route('edit.khamngoaimat', $hosobenhnhan->id)}}">Khám ngoài mặt</a>
+                    <a class="collapse-item" href="{{route('edit.tuvantaichinh', $hosobenhnhan->id)}}">Tư vấn</a>
+                    <a class="collapse-item" href="{{route('index.kehoachdieutri', $hosobenhnhan->id)}}">Kế hoạch điều trị</a>
+                    <a class="collapse-item" href="{{route('index.quatrinhdieutri', $hosobenhnhan->id)}}">Quá trình điều trị</a>
+                    <a class="collapse-item" href="{{route('index.image', $hosobenhnhan->id)}}">Hình ảnh</a>
+
                 </div>
             </div>
         </li>

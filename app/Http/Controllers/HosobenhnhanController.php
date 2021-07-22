@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Images;
 use App\Models\Khamngoaimat;
+use App\Models\Quatrinhdieutri;
+use App\Models\Tuvantaichinh;
 use Illuminate\Http\Request;
 use App\Models\Hosobenhnhan;
 use Illuminate\Support\Facades\DB;
@@ -231,6 +234,145 @@ class HosobenhnhanController extends Controller
         return back();
 
 
+    }
+
+    public function edit_tuvantaichinh($id){
+
+        $hosobenhnhan = Hosobenhnhan::find($id);
+
+        $tuvantaichinh = DB::table('hosobenhnhan')
+            ->join('tuvantaichinh','hosobenhnhan.id','tuvantaichinh.hosobenhnhan_id')
+            ->select('tuvantaichinh.*')
+            ->where('tuvantaichinh.hosobenhnhan_id','=',"$id")
+            ->get();
+
+        return view('admin.detail.edit_tuvantaichinh', compact('hosobenhnhan','tuvantaichinh'));
+    }
+
+    public function store_tuvantaichinh(Request $request){
+
+        $tuvantaichinh = new Tuvantaichinh();
+        $tuvantaichinh->tvtc_tendanhmuc = $request->tvtc_tendanhmuc;
+        $tuvantaichinh->tvtc_gia = $request->tvtc_gia;
+        $tuvantaichinh->tvtc_soluong = $request->tvtc_soluong;
+        $tuvantaichinh->tvtc_giam = $request->tvtc_giam;
+        $tuvantaichinh->tvtc_thanhtien = $request->tvtc_thanhtien;
+
+        $tuvantaichinh->hosobenhnhan_id = $request->hosobenhnhan_id;
+
+        $tuvantaichinh->save();
+
+        toastr()->success('Lưu thành công', 'Thành Công !');
+        return back();
+
+
+    }
+
+    public function edit_tuvantaichinh_store(Request $request,$id){
+
+        $hosobenhnhan = Hosobenhnhan::findOrFail($id);
+
+        if (!empty($request->tvtc_mongmuondieutri)){
+            $hosobenhnhan->tvtc_mongmuondieutri = implode(",", $request->tvtc_mongmuondieutri);
+        }
+        $hosobenhnhan->tvtc_thoigiantoida = $request->tvtc_thoigiantoida;
+        $hosobenhnhan->tvtc_chiphidutru = $request->tvtc_chiphidutru;
+        $hosobenhnhan->tvtc_ghichu = $request->tvtc_ghichu;
+        $hosobenhnhan->tvtc_solanthanhtoan = $request->tvtc_solanthanhtoan;
+        $hosobenhnhan->tvtc_cacdotthanhtoann = $request->tvtc_cacdotthanhtoann;
+
+        $hosobenhnhan->save();
+
+        toastr()->success('Lưu hồ sơ thành công', 'Thành Công !');
+        return back();
+    }
+
+    public function index_thuvientuvan($id){
+        $hosobenhnhan = Hosobenhnhan::findOrFail($id);
+        return view('admin.detail.thuvientuvan',compact('hosobenhnhan'));
+    }
+
+    public function index_image($id){
+        $hosobenhnhan = Hosobenhnhan::find($id);
+
+        $images = DB::table('hosobenhnhan')
+            ->join('images','hosobenhnhan.id','images.hosobenhnhan_id')
+            ->select('images.*')
+            ->where('images.hosobenhnhan_id','=',"$id")
+            ->simplePaginate(9);
+
+        return view('admin.detail.edit_image', compact('hosobenhnhan','images'));
+    }
+
+    public function store_image(Request $request){
+
+        $images = new Images();
+
+        if($request->hasFile('image')){
+            $image = $request->file('image');
+            $path = $image->store('images','public');
+            $images->image = $path;
+        }
+
+        $images->hosobenhnhan_id = $request->hosobenhnhan_id;
+        $images->save();
+        toastr()->success('Lưu thành công', 'Thành Công !');
+        return back();
+    }
+
+    public function index_quatrinhdieutri($id){
+        $hosobenhnhan = Hosobenhnhan::find($id);
+
+        $quatrinhdieutri = DB::table('hosobenhnhan')
+            ->join('quatrinhdieutri','hosobenhnhan.id','quatrinhdieutri.hosobenhnhan_id')
+            ->select('quatrinhdieutri.*')
+            ->where('quatrinhdieutri.hosobenhnhan_id','=',"$id")
+            ->get();
+
+        return view('admin.detail.quatrinhdieutri', compact('hosobenhnhan','quatrinhdieutri'));
+
+    }
+
+    public function store_quatrinhdieutri(Request $request){
+
+        $quatrinhdieutri = new Quatrinhdieutri();
+        $quatrinhdieutri->ngay = $request->ngay;
+        $quatrinhdieutri->bacsi = $request->bacsi;
+        $quatrinhdieutri->dieutrilantruoc = $request->dieutrilantruoc;
+        $quatrinhdieutri->congviecdieutrilannay = $request->congviecdieutrilannay;
+        $quatrinhdieutri->congviecdukienlantoi = $request->congviecdukienlantoi;
+        $quatrinhdieutri->thanhtoan = $request->thanhtoan;
+        $quatrinhdieutri->hosobenhnhan_id = $request->hosobenhnhan_id;
+        $quatrinhdieutri->save();
+        toastr()->success('Lưu thành công', 'Thành Công !');
+        return back();
+    }
+
+    public function index_kehoachdieutri($id){
+
+        $hosobenhnhan = Hosobenhnhan::find($id);
+
+
+        return view('admin.detail.kehoachdieutri', compact('hosobenhnhan'));
+
+    }
+
+    public function store_kehoachdieutri(Request $request,$id){
+
+        $hosobenhnhan = Hosobenhnhan::findOrFail($id);
+
+        $hosobenhnhan->kehoachdieutri = $request->kehoachdieutri;
+        $hosobenhnhan->khdt_vandequantamchinh = $request->khdt_vandequantamchinh;
+        $hosobenhnhan->khdt_vandedieutri = $request->khdt_vandedieutri;
+        $hosobenhnhan->khdt_ghichu = $request->khdt_ghichu;
+        $hosobenhnhan->khdt_chuandoan = $request->khdt_chuandoan;
+        $hosobenhnhan->khdt_muctieudieutri = $request->khdt_muctieudieutri;
+        $hosobenhnhan->khdt_gioihandieutri = $request->khdt_gioihandieutri;
+
+        $hosobenhnhan->save();
+
+        toastr()->success('Lưu thành công', 'Thành Công !');
+        return back();
     }
 
 

@@ -13,6 +13,6 @@ class Hosobenhnhan extends Model
 
     public function khamngoaimat()
     {
-        return $this->hasOne(Khamngoaimat::class,"hosobenhnhan_id");
+        return $this->hasMany(Tuvantaichinh::class);
     }
 }

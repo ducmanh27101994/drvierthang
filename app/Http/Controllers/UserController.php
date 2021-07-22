@@ -16,6 +16,10 @@ class UserController extends Controller
         return view('login.login');
     }
 
+    function register(){
+        return view('login.register');
+    }
+
     function storeLoginAdmin(Request $request)
     {
         $getUser = DB::table('users')->select('*')->where([

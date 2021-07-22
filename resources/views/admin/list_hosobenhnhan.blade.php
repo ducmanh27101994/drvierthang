@@ -72,7 +72,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="card-body">
-                                        <table class="table">
+                                        <table class="table table-striped">
                                             <thead class="" style="background-color: #7e1d0c; color: white" >
                                             <tr>
                                                 <th scope="col" style="text-align: center">#</th>
@@ -95,8 +95,8 @@
                                                     <img style="height: 50px" src="{{asset('storage/'.$value->image)}}" alt="">
                                                     </a>
                                                 </td>
-                                                <td style="text-align: center">
-                                                    <a href="{{route('hosobenhnhan.detail',$value->id)}}">
+                                                <td style="text-align: center; ">
+                                                    <a href="{{route('hosobenhnhan.detail',$value->id)}}" style="color: #7e1d0c ">
                                                         {{$value->customer_name}}
                                                     </a>
                                                 </td>

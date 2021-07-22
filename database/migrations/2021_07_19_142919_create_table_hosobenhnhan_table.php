@@ -59,8 +59,22 @@ class CreateTableHosobenhnhanTable extends Migration
             $table->string('ktm_giaidoanrang')->nullable();
             $table->string('ktm_nuouvunggRCduoi')->nullable();
 
+            //Tư vấn tài chính
+            $table->string('tvtc_mongmuondieutri')->nullable();
+            $table->string('tvtc_thoigiantoida')->nullable();
+            $table->string('tvtc_chiphidutru')->nullable();
+            $table->string('tvtc_ghichu')->nullable();
+            $table->string('tvtc_solanthanhtoan')->nullable();
+            $table->string('tvtc_cacdotthanhtoann')->nullable();
 
-
+            //Kế hoạch điều trị
+            $table->longText('kehoachdieutri')->nullable();
+            $table->string('khdt_vandequantamchinh')->nullable();
+            $table->string('khdt_vandedieutri')->nullable();
+            $table->string('khdt_ghichu')->nullable();
+            $table->string('khdt_chuandoan')->nullable();
+            $table->string('khdt_muctieudieutri')->nullable();
+            $table->string('khdt_gioihandieutri')->nullable();
 
             $table->timestamps();
         });

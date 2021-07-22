@@ -8,8 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-
-    <title>Login</title>
+    <link rel="shortcut icon" type="image/png" href="https://service.egate.global/uploads/avatar/1626947384-c748b32f42adb8b1c59ba992ee88544b1.png"/>
+    <title>Đăng nhập - Dr.VietThang</title>
 
     <!-- Custom fonts for this template-->
     <link href="{{asset('/sb_admin/vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
@@ -45,7 +45,7 @@
                         <div class="col-lg-6">
                             <div class="p-5">
                                 <div class="text-center">
-                                    <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+                                    <h1 class="h4 text-gray-900 mb-4">Chào Mừng Trở Lại!</h1>
                                 </div>
                                 <form class="user" method="post" action="{{route('login.store')}}">
                                     @csrf
@@ -60,13 +60,13 @@
                                     </div>
 
                                     <button type="submit" class="btn btn-primary btn-user btn-block">
-                                        Login
+                                        Đăng nhập
                                     </button>
 
                                 </form>
                                 <hr>
                                 <div class="text-center">
-                                    <a class="small" href="register.html">Create an Account!</a>
+                                    <a class="small" href="{{route('index.register')}}">Tạo tài khoản!</a>
                                 </div>
                             </div>
                         </div>

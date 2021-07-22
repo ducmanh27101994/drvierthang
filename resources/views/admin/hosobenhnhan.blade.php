@@ -91,7 +91,7 @@
                                         <div>
                                             <span>Họ và tên: </span>
                                             <input type="text" name="customer_name" class="form-control" id=""
-                                                   aria-describedby="" placeholder="">
+                                                   aria-describedby="" placeholder="" required>
                                             <br>
                                         </div>
 
