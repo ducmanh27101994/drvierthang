@@ -83,6 +83,7 @@
                     <a class="collapse-item" href="{{route('edit.khamtrongmieng', $hosobenhnhan->id)}}">Khám trong miệng</a>
                     <a class="collapse-item" href="{{route('edit.khamngoaimat', $hosobenhnhan->id)}}">Khám ngoài mặt</a>
                     <a class="collapse-item" href="{{route('edit.tuvantaichinh', $hosobenhnhan->id)}}">Tư vấn</a>
+                    <a class="collapse-item" href="{{route('index.phantichphim', $hosobenhnhan->id)}}">Phân tích</a>
                     <a class="collapse-item" href="{{route('index.kehoachdieutri', $hosobenhnhan->id)}}">Kế hoạch điều trị</a>
                     <a class="collapse-item" href="{{route('index.quatrinhdieutri', $hosobenhnhan->id)}}">Quá trình điều trị</a>
                     <a class="collapse-item" href="{{route('index.image', $hosobenhnhan->id)}}">Hình ảnh</a>
@@ -97,31 +98,21 @@
         <hr class="sidebar-divider" style="background-color: white">
 
         <!-- Heading -->
-{{--        <div class="sidebar-heading">--}}
-{{--            Users--}}
-{{--        </div>--}}
+        <?php if (\Illuminate\Support\Facades\Session::get('loginAuth') == 'drvietthang@gmail.com'): ?>
+        <div class="sidebar-heading">
+            Users
+        </div>
 
-{{--        <!-- Nav Item - Pages Collapse Menu -->--}}
-{{--        <li class="nav-item">--}}
-{{--            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"--}}
-{{--               aria-expanded="true" aria-controls="collapsePages">--}}
-{{--                <i class="fas fa-fw fa-folder"></i>--}}
-{{--                <span>Quản lý users</span>--}}
-{{--            </a>--}}
-{{--            <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">--}}
-{{--                <div class="bg-white py-2 collapse-inner rounded">--}}
-{{--                    <h6 class="collapse-header">Login Screens:</h6>--}}
-{{--                    <a class="collapse-item" href="login.html">Login</a>--}}
-{{--                    <a class="collapse-item" href="register.html">Register</a>--}}
-{{--                    <a class="collapse-item" href="forgot-password.html">Forgot Password</a>--}}
-{{--                    <div class="collapse-divider"></div>--}}
-{{--                    <h6 class="collapse-header">Other Pages:</h6>--}}
-{{--                    <a class="collapse-item" href="404.html">404 Page</a>--}}
-{{--                    <a class="collapse-item" href="blank.html">Blank Page</a>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </li>--}}
+        <!-- Nav Item - Pages Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{{route('index.user')}}"
+               aria-expanded="true" aria-controls="collapsePages">
+                <i class="fas fa-fw fa-folder"></i>
+                <span>Quản lý users</span>
+            </a>
 
+        </li>
+    <?php endif; ?>
 
         <!-- Divider -->
         <hr class="sidebar-divider d-none d-md-block">

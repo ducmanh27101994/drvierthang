@@ -14,9 +14,10 @@
                 <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                     <i class="fa fa-bars"></i>
                 </button>
+                <?php if (\Illuminate\Support\Facades\Session::get('loginAuth') == 'drvietthang@gmail.com'): ?>
                 <a href="{{route('hosobenhnhan')}}" type="button" class="btn btn-danger"
                    style="background-color: #7e1d0c">Tạo hồ sơ mới</a>
-
+                <?php endif; ?>
                 <!-- Topbar Search -->
 
 
@@ -173,8 +174,10 @@
                     </div>
 
                     <div class="modal-footer">
+                        <?php if (\Illuminate\Support\Facades\Session::get('loginAuth') == 'drvietthang@gmail.com'): ?>
                         <button type="submit" class="btn " style="background-color: #7e1d0c; color: white" onclick="return confirm('Bạn có chắc chắn muốn thêm đợt điều trị')">Thêm mới
                         </button>
+                            <?php endif; ?>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
                     </div>
                 </form>

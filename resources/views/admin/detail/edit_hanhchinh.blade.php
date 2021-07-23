@@ -14,8 +14,9 @@
                 <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                     <i class="fa fa-bars"></i>
                 </button>
+                <?php if (\Illuminate\Support\Facades\Session::get('loginAuth') == 'drvietthang@gmail.com'): ?>
                 <a href="{{route('hosobenhnhan')}}" type="button" class="btn btn-danger" style="background-color: #7e1d0c">Tạo hồ sơ mới</a>
-
+            <?php endif; ?>
                 <!-- Topbar Search -->
 
 
@@ -97,7 +98,7 @@
                                             <div>
                                                 <span>Họ và tên: </span>
                                                 <input type="text" name="customer_name" class="form-control" id=""
-                                                       aria-describedby="" placeholder="" value="<?= !empty($hosobenhnhan->customer_name) ? $hosobenhnhan->customer_name : "" ?>">
+                                                       aria-describedby="" placeholder="" value="<?= !empty($hosobenhnhan->customer_name) ? $hosobenhnhan->customer_name : "" ?>" required>
                                                 <br>
                                             </div>
 
@@ -125,14 +126,14 @@
                                             <div>
                                                 <span>Số điện thoại: </span>
                                                 <input type="text" name="phone" class="form-control" id=""
-                                                       aria-describedby="" placeholder="" value="<?= !empty($hosobenhnhan->phone) ? $hosobenhnhan->phone : "" ?>">
+                                                       aria-describedby="" placeholder="" value="<?= !empty($hosobenhnhan->phone) ? $hosobenhnhan->phone : "" ?>" required>
                                                 <br>
                                             </div>
 
                                             <div>
                                                 <span>Email: </span>
                                                 <input type="email" name="email" class="form-control" id=""
-                                                       aria-describedby="" placeholder="" value="<?= !empty($hosobenhnhan->email) ? $hosobenhnhan->email : "" ?>">
+                                                       aria-describedby="" placeholder="" value="<?= !empty($hosobenhnhan->email) ? $hosobenhnhan->email : "" ?>" required>
                                                 <br>
                                             </div>
                                         </div>
@@ -387,7 +388,10 @@
                                 </div>
 
                             </div>
-                            <button type="submit" class="btn" style="background-color: #7e1d0c; color: white" onclick="return confirm('Bạn có chắc chắn thay đổi thông tin?')">Lưu thay đổi</button>
+                                <?php if (\Illuminate\Support\Facades\Session::get('loginAuth') == 'drvietthang@gmail.com'): ?>
+
+                                <button type="submit" class="btn" style="background-color: #7e1d0c; color: white" onclick="return confirm('Bạn có chắc chắn thay đổi thông tin?')">Lưu thay đổi</button>
+                                <?php endif; ?>
                         </div>
 
                         <div class="col-lg-6 mb-4">

@@ -119,14 +119,14 @@
                                         <div>
                                             <span>Số điện thoại: </span>
                                             <input type="text" name="phone" class="form-control" id=""
-                                                   aria-describedby="" placeholder="">
+                                                   aria-describedby="" placeholder="" required>
                                             <br>
                                         </div>
 
                                         <div>
                                             <span>Email: </span>
                                             <input type="email" name="email" class="form-control" id=""
-                                                   aria-describedby="" placeholder="">
+                                                   aria-describedby="" placeholder="" required>
                                             <br>
                                         </div>
                                     </div>
@@ -377,7 +377,9 @@
                             </div>
 
                         </div>
+                        <?php if (\Illuminate\Support\Facades\Session::get('loginAuth') == 'drvietthang@gmail.com'): ?>
                         <button type="submit" class="btn" style="background-color: #7e1d0c; color: white">Tạo hồ sơ</button>
+                        <?php endif; ?>
                     </div>
 
                     <div class="col-lg-6 mb-4">

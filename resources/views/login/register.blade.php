@@ -19,7 +19,7 @@
 
     <!-- Custom styles for this template-->
     <link href="{{asset('/sb_admin/css/sb-admin-2.min.css')}}" rel="stylesheet">
-
+    @toastr_css
 </head>
 
 <body class="bg-gradient-primary">
@@ -36,30 +36,30 @@
                         <div class="text-center">
                             <h1 class="h4 text-gray-900 mb-4">Tạo Tài Khoản!</h1>
                         </div>
-                        <form class="user" action="">
+                        <form method="post" class="user" action="{{route('store.register')}}">
                             @csrf
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0">
-                                    <input type="text" class="form-control form-control-user" id="exampleFirstName"
-                                           placeholder="First Name">
+                                    <input name="first_name" type="text" class="form-control form-control-user" id="exampleFirstName"
+                                           placeholder="First Name" required>
                                 </div>
                                 <div class="col-sm-6">
-                                    <input type="text" class="form-control form-control-user" id="exampleLastName"
-                                           placeholder="Last Name">
+                                    <input name="last_name" type="text" class="form-control form-control-user" id="exampleLastName"
+                                           placeholder="Last Name" required>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <input type="email" class="form-control form-control-user" id="exampleInputEmail"
-                                       placeholder="Email Address">
+                                <input name="email" type="email" class="form-control form-control-user" id="exampleInputEmail"
+                                       placeholder="Email Address" required>
                             </div>
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0">
-                                    <input type="password" class="form-control form-control-user"
-                                           id="exampleInputPassword" placeholder="Password">
+                                    <input name="password" type="password" class="form-control form-control-user"
+                                           id="exampleInputPassword" placeholder="Password" required>
                                 </div>
                                 <div class="col-sm-6">
-                                    <input type="password" class="form-control form-control-user"
-                                           id="exampleRepeatPassword" placeholder="Repeat Password">
+                                    <input name="repeat_password" type="password" class="form-control form-control-user"
+                                           id="exampleRepeatPassword" placeholder="Repeat Password" required>
                                 </div>
                             </div>
                             <button type="submit"  class="btn btn-primary btn-user btn-block">
@@ -89,5 +89,7 @@
 <script src="{{asset('/sb_admin/js/sb-admin-2.min.js')}}"></script>
 
 </body>
-
+@jquery
+@toastr_js
+@toastr_render
 </html>

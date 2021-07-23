@@ -20,10 +20,13 @@ Route::get('/', [\App\Http\Controllers\UserController::class,"indexLogin"])->nam
 Route::get('/login', [\App\Http\Controllers\UserController::class,"indexLogin"])->name('login.index');
 Route::post('/login', [\App\Http\Controllers\UserController::class,'storeLoginAdmin'])->name('login.store');
 Route::get('/register', [\App\Http\Controllers\UserController::class,'register'])->name('index.register');
+Route::post('/register', [\App\Http\Controllers\UserController::class,'store_register'])->name('store.register');
 
 
 Route::middleware([\App\Http\Middleware\checkLogin::class])->prefix('/')->group(function () {
     Route::post('/', [\App\Http\Controllers\UserController::class,'logOutAdmin'])->name('logout.store');
+    Route::get('/quanlytaikhoan', [\App\Http\Controllers\UserController::class,'list_user'])->name('index.user');
+    Route::post('/quanlytaikhoan/{id}', [\App\Http\Controllers\UserController::class,'updateStatus_user'])->name('update.user');
 
     Route::get('/hosobenhnhan', [\App\Http\Controllers\HosobenhnhanController::class,'index_hosobenhnhan'])->name('hosobenhnhan');
     Route::post('/hosobenhnhan', [\App\Http\Controllers\HosobenhnhanController::class,'store_hosobenhnhan'])->name('hosobenhnhan.store');
@@ -48,6 +51,12 @@ Route::middleware([\App\Http\Middleware\checkLogin::class])->prefix('/')->group(
     Route::post('/quatrinhdieutri', [\App\Http\Controllers\HosobenhnhanController::class,'store_quatrinhdieutri'])->name('store.quatrinhdieutri');
     Route::get('/kehoachdieutri/{id}', [\App\Http\Controllers\HosobenhnhanController::class,'index_kehoachdieutri'])->name('index.kehoachdieutri');
     Route::post('/kehoachdieutri/{id}', [\App\Http\Controllers\HosobenhnhanController::class,'store_kehoachdieutri'])->name('store.kehoachdieutri');
+
+    Route::get('/phantichphim/{id}', [\App\Http\Controllers\HosobenhnhanController::class,'index_phantichphim'])->name('index.phantichphim');
+    Route::post('/phantichphim/{id}', [\App\Http\Controllers\HosobenhnhanController::class,'store_phantichphim'])->name('store.phantichphim');
+    Route::get('/phantichmauham/{id}', [\App\Http\Controllers\HosobenhnhanController::class,'index_phantichmauham'])->name('index.phantichmauham');
+    Route::post('/phantichmauham/{id}', [\App\Http\Controllers\HosobenhnhanController::class,'store_phantichmauham'])->name('store.phantichmauham');
+    Route::get('/vto/{id}', [\App\Http\Controllers\HosobenhnhanController::class,'index_vto'])->name('index.vto');
 
 
 });
