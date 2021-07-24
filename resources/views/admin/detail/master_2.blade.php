@@ -110,6 +110,11 @@
                 <i class="fas fa-fw fa-folder"></i>
                 <span>Quản lý users</span>
             </a>
+            <a class="nav-link collapsed" href="{{route('index.hosobenhnhanrang')}}"
+               aria-expanded="true" aria-controls="collapsePages">
+                <i class="fas fa-fw fa-folder"></i>
+                <span>Hồ sơ chỉnh nha</span>
+            </a>
 
         </li>
     <?php endif; ?>

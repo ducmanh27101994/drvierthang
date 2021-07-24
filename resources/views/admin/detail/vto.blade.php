@@ -87,131 +87,335 @@
                         <!-- Project Card Example -->
                         <div class="card shadow mb-4">
                             <div class="card-body">
-                                <table class="table table-striped">
+                                <table class="table">
                                     <thead style="background-color: #7e1d0c; color: white">
                                     <tr>
-                                        <th scope="col" style="text-align: center">#</th>
-                                        <th scope="col" style="text-align: center">Tên danh mục</th>
-                                        <th scope="col" style="text-align: center">Giá</th>
-                                        <th scope="col" style="text-align: center">Số lượng</th>
-                                        <th scope="col" style="text-align: center">Giảm</th>
-                                        <th scope="col" style="text-align: center">Thành tiền</th>
+                                        <th rowspan="3" style="text-align: center"></th>
+                                        <th colspan="4" style="text-align: center">Hàm dưới</th>
+                                        <th colspan="4" style="text-align: center">Hàm trên</th>
+                                    </tr>
+                                    <tr>
+
+                                        <th colspan="2" style="text-align: center">Cung 3-3</th>
+                                        <th colspan="2" style="text-align: center">Cung 7-7</th>
+                                        <th colspan="2" style="text-align: center">Cung 3-3</th>
+                                        <th colspan="2" style="text-align: center">Cung 7-7</th>
+                                    </tr>
+                                    <tr>
+
+                                        <th style="text-align: center">Phải</th>
+                                        <th style="text-align: center">Trái</th>
+                                        <th style="text-align: center">Phải</th>
+                                        <th style="text-align: center">Trái</th>
+                                        <th style="text-align: center">Phải</th>
+                                        <th style="text-align: center">Trái</th>
+                                        <th style="text-align: center">Phải</th>
+                                        <th style="text-align: center">Trái</th>
                                     </tr>
                                     </thead>
                                     <tbody>
+
+                                    <?php !empty($phantichphim->chenchucrang) ? $arr_chenchucrang = explode(",", $phantichphim->chenchucrang) : $arr_chenchucrang = []; ?>
+                                    <?php !empty($phantichphim->duongcongspee) ? $arr_duongcongspee = explode(",", $phantichphim->duongcongspee) : $arr_duongcongspee = []; ?>
+                                    <?php !empty($phantichphim->duonggiuahieuchinh) ? $arr_duonggiuahieuchinh = explode(",", $phantichphim->duonggiuahieuchinh) : $arr_duonggiuahieuchinh = []; ?>
+                                    <?php !empty($phantichphim->piprangcua) ? $arr_piprangcua = explode(",", $phantichphim->piprangcua) : $arr_piprangcua = []; ?>
+                                    <?php !empty($phantichphim->nhorang) ? $arr_nhorang = explode(",", $phantichphim->nhorang) : $arr_nhorang = []; ?>
+                                    <?php !empty($phantichphim->dixa) ? $arr_dixa = explode(",", $phantichphim->dixa) : $arr_dixa = []; ?>
+                                    <?php !empty($phantichphim->nongham) ? $arr_nongham = explode(",", $phantichphim->nongham) : $arr_nongham = []; ?>
+                                    <?php !empty($phantichphim->maike) ? $arr_maike = explode(",", $phantichphim->maike) : $arr_maike = []; ?>
+
+                                    <form method="post" action="{{route('store.vto',$hosobenhnhan->id)}}" >
+                                        @csrf
+
+                                    <tr>
+                                        <th style="text-align: center">Chen chúc răng</th>
+                                        <td style="text-align: center">
+                                            <input name="chenchucrang[]" class="form-control" value="<?= !empty($arr_chenchucrang[0]) ? $arr_chenchucrang[0] : '0' ?>" type="number" required style="text-align: center">
+                                        </td>
+                                        <td style="text-align: center">
+                                            <input name="chenchucrang[]" class="form-control" value="<?= !empty($arr_chenchucrang[1]) ? $arr_chenchucrang[1] : '0' ?>" type="number" required style="text-align: center">
+                                        </td>
+                                        <td style="text-align: center">
+                                            <input name="chenchucrang[]" class="form-control" value="<?= !empty($arr_chenchucrang[2]) ? $arr_chenchucrang[2] : '0' ?>" type="number" required style="text-align: center">
+                                        </td>
+                                        <td style="text-align: center">
+                                            <input name="chenchucrang[]" class="form-control" value="<?= !empty($arr_chenchucrang[3]) ? $arr_chenchucrang[3] : '0' ?>" type="number" required style="text-align: center">
+                                        </td>
+                                        <td style="text-align: center">
+                                            <input name="chenchucrang[]" class="form-control" value="<?= !empty($arr_chenchucrang[4]) ? $arr_chenchucrang[4] : '0' ?>" type="number" required style="text-align: center">
+                                        </td>
+                                        <td style="text-align: center">
+                                            <input name="chenchucrang[]" class="form-control" value="<?= !empty($arr_chenchucrang[5]) ? $arr_chenchucrang[5] : '0' ?>" type="number" required style="text-align: center">
+                                        </td>
+                                        <td style="text-align: center">
+                                            <input name="chenchucrang[]" class="form-control" value="<?= !empty($arr_chenchucrang[6]) ? $arr_chenchucrang[6] : '0' ?>" type="number" required style="text-align: center">
+                                        </td>
+                                        <td style="text-align: center">
+                                            <input name="chenchucrang[]" class="form-control" value="<?= !empty($arr_chenchucrang[7]) ? $arr_chenchucrang[7] : '0' ?>" type="number" required style="text-align: center">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th style="text-align: center">Đường cong Spee</th>
+                                        <td style="text-align: center">
+                                            <input name="duongcongspee[]" class="form-control" value="<?= !empty($arr_duongcongspee[0]) ? $arr_duongcongspee[0] : '0' ?>" type="number" required style="text-align: center">
+                                        </td>
+                                        <td style="text-align: center">
+                                            <input name="duongcongspee[]" class="form-control" value="<?= !empty($arr_duongcongspee[1]) ? $arr_duongcongspee[1] : '0' ?>" type="number" required style="text-align: center">
+                                        </td>
+                                        <td style="text-align: center">
+                                            <input name="duongcongspee[]" class="form-control" value="<?= !empty($arr_duongcongspee[2]) ? $arr_duongcongspee[2] : '0' ?>" type="number" required style="text-align: center">
+                                        </td>
+                                        <td style="text-align: center">
+                                            <input name="duongcongspee[]" class="form-control" value="<?= !empty($arr_duongcongspee[3]) ? $arr_duongcongspee[3] : '0' ?>" type="number" required style="text-align: center">
+                                        </td>
+                                        <td style="text-align: center">
+                                            <input name="duongcongspee[]" class="form-control" value="<?= !empty($arr_duongcongspee[4]) ? $arr_duongcongspee[4] : '0' ?>" type="number" required style="text-align: center">
+                                        </td>
+                                        <td style="text-align: center">
+                                            <input name="duongcongspee[]" class="form-control" value="<?= !empty($arr_duongcongspee[5]) ? $arr_duongcongspee[5] : '0' ?>" type="number" required style="text-align: center">
+                                        </td>
+                                        <td style="text-align: center">
+                                            <input name="duongcongspee[]" class="form-control" value="<?= !empty($arr_duongcongspee[6]) ? $arr_duongcongspee[6] : '0' ?>" type="number" required style="text-align: center">
+                                        </td>
+                                        <td style="text-align: center">
+                                            <input name="duongcongspee[]" class="form-control" value="<?= !empty($arr_duongcongspee[7]) ? $arr_duongcongspee[7] : '0' ?>" type="number" required style="text-align: center">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th style="text-align: center">Đường giữa hiệu chỉnh</th>
+                                        <?php for ($i=0; $i<8;$i++): ?>
+                                        <td style="text-align: center">
+                                            <input type="number" style="text-align: center" name="duonggiuahieuchinh[]" class="form-control" value="<?= !empty($arr_duonggiuahieuchinh[$i]) ? $arr_duonggiuahieuchinh[$i] : '0' ?>" required>
+                                        </td>
+                                        <?php endfor; ?>
+                                    </tr>
+                                    <tr>
+                                        <th style="text-align: center">PIP răng cửa</th>
+                                        <?php for ($i=0; $i<8;$i++): ?>
+                                        <td style="text-align: center">
+                                            <input type="number" style="text-align: center" name="piprangcua[]" class="form-control" value="<?= !empty($arr_piprangcua[$i]) ? $arr_piprangcua[$i] : '0' ?>" required>
+                                        </td>
+                                        <?php endfor; ?>
+                                    </tr>
+                                    <tr style="background-color: #f2f2f2; color: black">
+                                        <th style="text-align: center">Khoảng cần</th>
+                                        <?php for ($i=0; $i<8;$i++): ?>
+                                        <?php $total_khoangcan  = (!empty($arr_chenchucrang[$i]) ? $arr_chenchucrang[$i] : 0) + (!empty($arr_duongcongspee[$i]) ? $arr_duongcongspee[$i] : 0) + (!empty($arr_duonggiuahieuchinh[$i]) ? $arr_duonggiuahieuchinh[$i] : 0) + (!empty($arr_piprangcua[$i]) ? $arr_piprangcua[$i] : 0) ?>
+                                        <td style="text-align: center">
+                                            <input type="number" style="text-align: center" class="form-control" value="<?= $total_khoangcan ?>" disabled>
+                                        </td>
+                                        <?php endfor; ?>
+                                    </tr>
+                                    <tr>
+                                        <th style="text-align: center">Nhổ răng</th>
+                                        <?php for ($i=0; $i<8;$i++): ?>
+                                        <td style="text-align: center">
+                                            <input type="number" style="text-align: center" name="nhorang[]" class="form-control" value="<?= !empty($arr_nhorang[$i]) ? $arr_nhorang[$i] : '0' ?>" required>
+                                        </td>
+                                        <?php endfor; ?>
+                                    </tr>
+                                    <tr>
+                                        <th style="text-align: center">Di xa</th>
+                                        <?php for ($i=0; $i<8;$i++): ?>
+                                        <td style="text-align: center">
+                                            <input type="number" style="text-align: center" name="dixa[]" class="form-control" value="<?= !empty($arr_dixa[$i]) ? $arr_dixa[$i] : '0' ?>" required>
+                                        </td>
+                                        <?php endfor; ?>
+                                    </tr>
+                                    <tr>
+                                        <th style="text-align: center">Nong hàm</th>
+                                        <?php for ($i=0; $i<8;$i++): ?>
+                                        <td style="text-align: center">
+                                            <input type="number" style="text-align: center" name="nongham[]" class="form-control" value="<?= !empty($arr_nongham[$i]) ? $arr_nongham[$i] : '0' ?>" required>
+                                        </td>
+                                        <?php endfor; ?>
+                                    </tr>
+                                    <tr>
+                                        <th style="text-align: center">Mài kẽ</th>
+                                        <?php for ($i=0; $i<8;$i++): ?>
+                                        <td style="text-align: center">
+                                            <input type="number" style="text-align: center" name="maike[]" class="form-control" value="<?= !empty($arr_maike[$i]) ? $arr_maike[$i] : '0' ?>" required>
+                                        </td>
+                                        <?php endfor; ?>
+                                    </tr>
+                                    <tr style="background-color: #f2f2f2; color: black">
+                                        <th style="text-align: center">Kết quả</th>
+                                        <?php for ($i=0; $i<8;$i++): ?>
+                                        <?php $total_ketqua  = (!empty($arr_nhorang[$i]) ? $arr_nhorang[$i] : 0) + (!empty($arr_dixa[$i]) ? $arr_dixa[$i] : 0) + (!empty($arr_nongham[$i]) ? $arr_nongham[$i] : 0) + (!empty($arr_maike[$i]) ? $arr_maike[$i] : 0) ?>
+                                        <td style="text-align: center">
+                                            <input type="number" style="text-align: center" class="form-control" value="<?= $total_ketqua + (int)$total_khoangcan ?>" disabled>
+                                        </td>
+                                        <?php endfor; ?>
+                                    </tr>
+                                    </tbody>
                                 </table>
                             </div>
 
                         </div>
                     </div>
                 </div>
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold " style="color: #7e1d0c">Mong muốn điều trị</h6>
-                </div>
-                <form method="post" action="{{route('update.tuvantaichinh', $hosobenhnhan->id)}}">
-                    @csrf
-                    <div class="row">
-                        <!-- Content Column -->
-                        <div class="col-lg-6 mb-4">
-                            <!-- Project Card Example -->
-                            <?php !empty($hosobenhnhan->tvtc_mongmuondieutri) ? $arr_tvtc_mongmuondieutri = explode(",", $hosobenhnhan->tvtc_mongmuondieutri) : $arr_tvtc_mongmuondieutri = []; ?>
-                            <div class="card shadow mb-4">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="card-body">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="Không nhổ răng"
-                                                       id=""
-                                                       name="tvtc_mongmuondieutri[]" <?= in_array("Không nhổ răng", $arr_tvtc_mongmuondieutri) ? "checked" : "" ?>>
-                                                <label class="form-check-label" for="defaultCheck1">
-                                                    Không nhổ răng
-                                                </label>
-                                            </div>
-                                            <br>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="Phẫu thuật chỉnh nha"
-                                                       id=""
-                                                       name="tvtc_mongmuondieutri[]" <?= in_array("Phẫu thuật chỉnh nha", $arr_tvtc_mongmuondieutri) ? "checked" : "" ?>>
-                                                <label class="form-check-label" for="defaultCheck1">
-                                                    Phẫu thuật chỉnh nha
-                                                </label>
-                                            </div>
-                                            <br>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="Nhổ răng"
-                                                       id=""
-                                                       name="tvtc_mongmuondieutri[]" <?= in_array("Nhổ răng", $arr_tvtc_mongmuondieutri) ? "checked" : "" ?>>
-                                                <label class="form-check-label" for="defaultCheck1">
-                                                    Nhổ răng
-                                                </label>
-                                            </div>
-                                            <br>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="Cắt vỏ xương" id=""
-                                                       name="tvtc_mongmuondieutri[]" <?= in_array("Cắt vỏ xương", $arr_tvtc_mongmuondieutri) ? "checked" : "" ?>>
-                                                <label class="form-check-label" for="defaultCheck1">
-                                                    Cắt vỏ xương
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="card-body">
-                                            <span>Thời gian tối đa: </span>
-                                            <input type="text" name="tvtc_thoigiantoida" class="form-control" id=""
-                                                   aria-describedby="" placeholder=""
-                                                   value="<?= !empty($hosobenhnhan->tvtc_thoigiantoida) ? $hosobenhnhan->tvtc_thoigiantoida : "" ?>">
-                                            <br>
-                                            <span>Chi phí dự trù: </span>
-                                            <input type="text" name="tvtc_chiphidutru" class="form-control" id=""
-                                                   aria-describedby="" placeholder=""
-                                                   value="<?= !empty($hosobenhnhan->tvtc_chiphidutru) ? $hosobenhnhan->tvtc_chiphidutru : "" ?>">
 
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="card-body">
-                                        <span>Ghi chú: </span>
-                                        <textarea name="tvtc_ghichu" class="form-control" id="" rows="4"
-                                                  placeholder=""><?= !empty($hosobenhnhan->tvtc_ghichu) ? $hosobenhnhan->tvtc_ghichu : "" ?></textarea>
-                                    </div>
-                                </div>
-
-
+                <div class="row">
+                    <!-- Content Column -->
+                    <div class="col-lg-6 mb-4">
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold " style="color: #7e1d0c">VTO răng cửa hàm dưới</h6>
                             </div>
-                        </div>
-                        <div class="col-lg-6 mb-4">
-                            <!-- Approach -->
-                            <div class="card shadow mb-4">
-                                <div class="col-md-12">
-                                    <div class="card-body">
+                            <div class="col-md-12">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <h5 style="text-align: center">Kết quả Ceph</h5>
+                                            <br>
+                                            <span>Độ nghiêng (độ):</span>
+                                            <input type="text" name="hamduoi_1" class="form-control" id=""
+                                                   aria-describedby="" placeholder=""
+                                                   value="<?= !empty($phantichphim->hamduoi_1) ? $phantichphim->hamduoi_1 : '' ?>">
+                                            <br>
+                                            <span>Độ nhô (mm)</span>
+                                            <input type="text" name="hamduoi_2" class="form-control" id=""
+                                                   aria-describedby="" placeholder=""
+                                                   value="<?= !empty($phantichphim->hamduoi_2) ? $phantichphim->hamduoi_2 : '' ?>">
 
-
-                                        <span>Số lần thanh toán:</span>
-                                        <input type="text" name="tvtc_solanthanhtoan" class="form-control" id=""
-                                               aria-describedby="" placeholder=""
-                                               value="<?= !empty($hosobenhnhan->tvtc_solanthanhtoan) ? $hosobenhnhan->tvtc_solanthanhtoan : "" ?>">
-                                        <br>
-                                        <span>Các đợt thanh toán: </span>
-                                        <textarea name="tvtc_cacdotthanhtoann" class="form-control" id="" rows="4"
-                                                  placeholder=""><?= !empty($hosobenhnhan->tvtc_cacdotthanhtoann) ? $hosobenhnhan->tvtc_cacdotthanhtoann : "" ?></textarea>
-
+                                        </div>
+                                        <div class="col-md-6">
+                                            <h5 style="text-align: center">Kế hoạch</h5>
+                                            <br>
+                                            <span>Độ nghiêng (độ):</span>
+                                            <input type="text" name="hamduoi_3" class="form-control" id=""
+                                                   aria-describedby="" placeholder=""
+                                                   value="<?= !empty($phantichphim->hamduoi_3) ? $phantichphim->hamduoi_3 : '' ?>">
+                                            <br>
+                                            <span>Độ nhô (mm)</span>
+                                            <input type="text" name="hamduoi_4" class="form-control" id=""
+                                                   aria-describedby="" placeholder=""
+                                                   value="<?= !empty($phantichphim->hamduoi_4) ? $phantichphim->hamduoi_4 : '' ?>">
+                                        </div>
                                     </div>
                                 </div>
-
                             </div>
 
                         </div>
 
                     </div>
-                    <?php if (\Illuminate\Support\Facades\Session::get('loginAuth') == 'drvietthang@gmail.com'): ?>
-                    <button type="submit" class="btn" style="background-color: #7e1d0c; color: white"
-                            onclick="return confirm('Bạn chắc chắn muốn lưu thông tin?')">Lưu thông tin
-                    </button>
-                    <?php endif; ?>
-                </form>
+                    <div class="col-lg-6 mb-4">
+                        <!-- Approach -->
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold " style="color: #7e1d0c">VTO răng cửa hàm trên</h6>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <h5 style="text-align: center">Kết quả Ceph</h5>
+                                                <br>
+                                                <span>Độ nghiêng (độ):</span>
+                                                <input type="text" name="hamtren_1" class="form-control" id=""
+                                                       aria-describedby="" placeholder=""
+                                                       value="<?= !empty($phantichphim->hamtren_1) ? $phantichphim->hamtren_1 : '' ?>">
+                                                <br>
+                                                <span>Độ nhô (mm)</span>
+                                                <input type="text" name="hamtren_2" class="form-control" id=""
+                                                       aria-describedby="" placeholder=""
+                                                       value="<?= !empty($phantichphim->hamtren_2) ? $phantichphim->hamtren_2 : '' ?>">
 
+                                            </div>
+                                            <div class="col-md-6">
+                                                <h5 style="text-align: center">Kế hoạch</h5>
+                                                <br>
+                                                <span>Độ nghiêng (độ):</span>
+                                                <input type="text" name="hamtren_3" class="form-control" id=""
+                                                       aria-describedby="" placeholder=""
+                                                       value="<?= !empty($phantichphim->hamtren_3) ? $phantichphim->hamtren_3 : '' ?>">
+                                                <br>
+                                                <span>Độ nhô (mm)</span>
+                                                <input type="text" name="hamtren_4" class="form-control" id=""
+                                                       aria-describedby="" placeholder=""
+                                                       value="<?= !empty($phantichphim->hamtren_4) ? $phantichphim->hamtren_4 : '' ?>">
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <!-- Content Column -->
+                    <div class="col-lg-6 mb-4">
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold " style="color: #7e1d0c">Kế hoạch di chuyển răng</h6>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="card-body">
+                                    <div class="row">
+                                    <style>
+                                        .di-chuyen-rang {
+                                            position: relative;
+                                        }
+
+                                        .di-chuyen-rang .title {
+                                            text-align: center;
+                                        }
+
+                                        .di-chuyen-rang .title span {
+                                            display: inline-block;
+                                            margin-top: 15px;
+                                            padding: 4px 15px;
+                                            border-radius: 15px;
+                                            background-color: #d9ce00;
+                                            color: #fff;
+                                            font-size: 13px;
+                                            font-weight: bold;
+                                        }
+
+                                        .di-chuyen-rang .image {
+                                            margin-top: 25px;
+                                            width: 100%;
+                                        }
+
+                                        .di-chuyen-rang input {
+                                            position: absolute;
+                                            width: 30px;
+                                            text-align: center;
+                                            border: 1px #ccc solid;
+                                            border-radius: 5px;
+                                        }
+                                    </style>
+                                        <?php !empty($phantichphim->di_chuyen_rang) ? $arr_di_chuyen_rang = explode(",", $phantichphim->di_chuyen_rang) : $arr_di_chuyen_rang = []; ?>
+                                        <div class="di-chuyen-rang" style="position:relative;">
+                                            <input name="di_chuyen_rang[]" type="text" class="" style="left:20%;" value="<?= !empty($arr_di_chuyen_rang[0]) ? $arr_di_chuyen_rang[0] : '0' ?>" required>
+                                            <input name="di_chuyen_rang[]" type="text" class="" style="left:35%;" value="<?= !empty($arr_di_chuyen_rang[1]) ? $arr_di_chuyen_rang[1] : '0' ?>" required>
+                                            <input name="di_chuyen_rang[]" type="text" class="" style="right:20%;" value="<?= !empty($arr_di_chuyen_rang[2]) ? $arr_di_chuyen_rang[2] : '0' ?>" required>
+                                            <input name="di_chuyen_rang[]" type="text" class="" style="right:35%;" value="<?= !empty($arr_di_chuyen_rang[3]) ? $arr_di_chuyen_rang[3] : '0' ?>" required>
+                                            <img src="https://service.egate.global/uploads/avatar/1627100007-30f31982305acb0ab05837d4d4490577.png" class="image">&nbsp;
+                                            <input name="di_chuyen_rang[]" type="text" class="" style="left:20%;" value="<?= !empty($arr_di_chuyen_rang[4]) ? $arr_di_chuyen_rang[4] : '0' ?>" required>
+                                            <input name="di_chuyen_rang[]" type="text" class="" style="left:35%;" value="<?= !empty($arr_di_chuyen_rang[5]) ? $arr_di_chuyen_rang[5] : '0' ?>" required>
+                                            <input name="di_chuyen_rang[]" type="text" class="" style="right:20%;" value="<?= !empty($arr_di_chuyen_rang[6]) ? $arr_di_chuyen_rang[6] : '0' ?>" required>
+                                            <input name="di_chuyen_rang[]" type="text" class="" style="right:35%;" value="<?= !empty($arr_di_chuyen_rang[7]) ? $arr_di_chuyen_rang[7] : '0' ?>" required>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+                <?php if (\Illuminate\Support\Facades\Session::get('loginAuth') == 'drvietthang@gmail.com'): ?>
+                <button type="submit" class="btn" style="background-color: #7e1d0c; color: white"
+                        onclick="return confirm('Bạn chắc chắn muốn lưu thông tin?')">Lưu thông tin
+                </button>
+            <?php endif; ?>
+            </form>
                 <!-- End of Main Content -->
 
                 <!-- Footer -->

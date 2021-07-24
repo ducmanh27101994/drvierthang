@@ -65,12 +65,12 @@
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
                     <h1 class="h3 mb-0 text-gray-800">Kế hoạch điều trị</h1>
 
-                    <button style="background-color: #7e1d0c; color: white"
-                            class="btn show-hide-total-top-ten"
-                            data-toggle="modal"
-                            data-target="#addnewModal_guihoso">
-                        Xem kế hoạch mẫu
-                    </button>
+{{--                    <button style="background-color: #7e1d0c; color: white"--}}
+{{--                            class="btn show-hide-total-top-ten"--}}
+{{--                            data-toggle="modal"--}}
+{{--                            data-target="#addnewModal_guihoso">--}}
+{{--                        Xem kế hoạch mẫu--}}
+{{--                    </button>--}}
                 </div>
 
 

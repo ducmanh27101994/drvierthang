@@ -57,6 +57,11 @@ Route::middleware([\App\Http\Middleware\checkLogin::class])->prefix('/')->group(
     Route::get('/phantichmauham/{id}', [\App\Http\Controllers\HosobenhnhanController::class,'index_phantichmauham'])->name('index.phantichmauham');
     Route::post('/phantichmauham/{id}', [\App\Http\Controllers\HosobenhnhanController::class,'store_phantichmauham'])->name('store.phantichmauham');
     Route::get('/vto/{id}', [\App\Http\Controllers\HosobenhnhanController::class,'index_vto'])->name('index.vto');
+    Route::post('/vto/{id}', [\App\Http\Controllers\HosobenhnhanController::class,'store_vto'])->name('store.vto');
+
+    Route::get('/search_list_hosobenhnhan', [\App\Http\Controllers\HosobenhnhanController::class,'search_hosobenhnhan'])->name('search.hosobenhnhan');
+    Route::get('/hosobenhnhanrang', [\App\Http\Controllers\HosobenhnhanController::class,'list_hosobenhnhanchinhnha'])->name('index.hosobenhnhanrang');
+
 
 
 });

@@ -62,6 +62,29 @@ class CreateTablePhantichphimTable extends Migration
             $table->string('ptmh_chieunganghamtren')->nullable();
             $table->string('ptmh_nongrong')->nullable();
 
+            //vto
+            $table->string('chenchucrang')->nullable();
+            $table->string('duongcongspee')->nullable();
+            $table->string('duonggiuahieuchinh')->nullable();
+            $table->string('piprangcua')->nullable();
+            $table->string('nhorang')->nullable();
+            $table->string('dixa')->nullable();
+            $table->string('nongham')->nullable();
+            $table->string('maike')->nullable();
+
+            $table->string('hamduoi_1')->nullable();
+            $table->string('hamduoi_2')->nullable();
+            $table->string('hamduoi_3')->nullable();
+            $table->string('hamduoi_4')->nullable();
+            $table->string('hamtren_1')->nullable();
+            $table->string('hamtren_2')->nullable();
+            $table->string('hamtren_3')->nullable();
+            $table->string('hamtren_4')->nullable();
+
+            $table->string('di_chuyen_rang')->nullable();
+
+
+
             $table->string('check_new')->nullable();
 
             $table->timestamps();

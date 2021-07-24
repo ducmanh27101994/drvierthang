@@ -10,6 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="shortcut icon" type="image/png" href="https://service.egate.global/uploads/avatar/1626947384-c748b32f42adb8b1c59ba992ee88544b1.png"/>
+    <script src="{{asset('/sb_admin/vendor/jquery/jquery.min.js')}}"></script>
 
     <title>Dashboard - Dr.VietThang</title>
 
@@ -94,6 +95,11 @@
                aria-expanded="true" aria-controls="collapsePages">
                 <i class="fas fa-fw fa-folder"></i>
                 <span>Quản lý users</span>
+            </a>
+            <a class="nav-link collapsed" href="{{route('index.hosobenhnhanrang')}}"
+               aria-expanded="true" aria-controls="collapsePages">
+                <i class="fas fa-fw fa-folder"></i>
+                <span>Hồ sơ chỉnh nha</span>
             </a>
 
         </li>

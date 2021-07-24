@@ -16,7 +16,7 @@
                 <?php if (\Illuminate\Support\Facades\Session::get('loginAuth') == 'drvietthang@gmail.com'): ?>
                 <a href="{{route('hosobenhnhan')}}" type="button" class="btn btn-danger" style="background-color: #7e1d0c">Tạo hồ sơ mới</a>
             <?php endif; ?>
-                <!-- Topbar Search -->
+            <!-- Topbar Search -->
 
 
                 <!-- Topbar Navbar -->
@@ -58,18 +58,13 @@
             <div class="container-fluid">
 
                 <!-- Page Heading -->
-<?php
+                <?php
                 $customer_name_search = !empty($_GET['customer_name_search']) ? $_GET['customer_name_search'] : "";
                 $status = !empty($_GET['status']) ? $_GET['status'] : "";
                 ?>
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h1 class="h3 mb-0 text-gray-800">Danh sách hồ sơ bệnh nhân</h1>
+                    <h1 class="h3 mb-0 text-gray-800">Danh sách hồ sơ bệnh nhân chỉnh nha</h1>
 
-{{--                    <button class="show-hide-total-all btn btn-success dropdown-toggle"--}}
-{{--                            onclick="$('#lockdulieu').toggleClass('show');">--}}
-{{--                        <span class="fa fa-filter"></span>--}}
-{{--                        Lọc dữ liệu--}}
-{{--                    </button>--}}
                     <div class="dropdown show">
                         <button class="show-hide-total-all btn btn-success dropdown-toggle"
                                 onclick="$('#lockdulieu').toggleClass('show');">
@@ -79,39 +74,28 @@
                         <div id="lockdulieu" class="dropdown-menu dropdown-menu-right" style="padding:15px;min-width:400px;">
                             <form method="get" action="{{route('search.hosobenhnhan')}}">
                                 @csrf
-                            <label>Họ và tên: </label>
-                            <input type="text" name="customer_name_search" class="form-control"
+                                <label>Họ và tên: </label>
+                                <input type="text" name="customer_name_search" class="form-control"
                                        value="<?= !empty($customer_name_search) ? $customer_name_search : "" ?>">
 
-                            <br>
-                            <label>Trạng thái: </label>
-                            <select class="form-control" id="" name="status">
-                                <option value="" style="font-weight: bold" >-- Trạng thái bệnh nhân --</option>
-                                <option value="Khám" style="font-weight: bold" <?= !empty($status) && $status == "Khám" ? "selected" : '' ?> >Khám</option>
+                                <br>
+                                <label>Trạng thái: </label>
+                                <select class="form-control" id="" name="status">
+                                    <option value="" style="font-weight: bold" >-- Trạng thái bệnh nhân --</option>
 
-                                <option value="Chỉnh nha" style="font-weight: bold" <?= !empty($status) && $status == "Chỉnh nha" ? "selected" : '' ?>>Chỉnh nha</option>
-                                <option value="Chỉnh nha - Thu thập dữ liệu" <?= !empty($status) && $status == "Chỉnh nha - Thu thập dữ liệu" ? "selected" : '' ?>>-- Thu thập dữ liệu</option>
-                                <option value="Chỉnh nha - Gửi kế hoạch điều trị" <?= !empty($status) && $status == "Chỉnh nha - Gửi kế hoạch điều trị" ? "selected" : '' ?>>-- Gửi kế hoạch điều trị</option>
-                                <option value="Chỉnh nha - Đã gán mắc cài" <?= !empty($status) && $status == "Chỉnh nha - Đã gán mắc cài" ? "selected" : '' ?>>-- Đã gán mắc cài</option>
-                                <option value="Chỉnh nha - Hoàn tất" <?= !empty($status) && $status == "Chỉnh nha - Hoàn tất" ? "selected" : '' ?>>-- Hoàn tất</option>
-                                <option value="Chỉnh nha - Hủy điều trị" <?= !empty($status) && $status == "Chỉnh nha - Hủy điều trị" ? "selected" : '' ?>>-- Hủy điều trị</option>
+                                    <option value="Chỉnh nha" style="font-weight: bold" <?= !empty($status) && $status == "Chỉnh nha" ? "selected" : '' ?>>Chỉnh nha</option>
+                                    <option value="Chỉnh nha - Thu thập dữ liệu" <?= !empty($status) && $status == "Chỉnh nha - Thu thập dữ liệu" ? "selected" : '' ?>>-- Thu thập dữ liệu</option>
+                                    <option value="Chỉnh nha - Gửi kế hoạch điều trị" <?= !empty($status) && $status == "Chỉnh nha - Gửi kế hoạch điều trị" ? "selected" : '' ?>>-- Gửi kế hoạch điều trị</option>
+                                    <option value="Chỉnh nha - Đã gán mắc cài" <?= !empty($status) && $status == "Chỉnh nha - Đã gán mắc cài" ? "selected" : '' ?>>-- Đã gán mắc cài</option>
+                                    <option value="Chỉnh nha - Hoàn tất" <?= !empty($status) && $status == "Chỉnh nha - Hoàn tất" ? "selected" : '' ?>>-- Hoàn tất</option>
+                                    <option value="Chỉnh nha - Hủy điều trị" <?= !empty($status) && $status == "Chỉnh nha - Hủy điều trị" ? "selected" : '' ?>>-- Hủy điều trị</option>
 
-                                <option value="Phục hình" style="font-weight: bold" <?= !empty($status) && $status == "Phục hình" ? "selected" : '' ?>>Phục hình</option>
-                                <option value="Phục hình - Đang làm" <?= !empty($status) && $status == "Phục hình - Đang làm" ? "selected" : '' ?>>-- Đang làm</option>
-                                <option value="Phục hình - Hoàn tất" <?= !empty($status) && $status == "Phục hình - Hoàn tất" ? "selected" : '' ?>>-- Hoàn tất</option>
-
-                                <option value="Tổng quát" style="font-weight: bold"<?= !empty($status) && $status == "Tổng quát" ? "selected" : '' ?>>Tổng quát</option>
-                                <option value="Tẩy trắng" <?= !empty($status) && $status == "Tẩy trắng" ? "selected" : '' ?>>-- Tẩy trắng</option>
-                                <option value="Trám răng" <?= !empty($status) && $status == "Trám răng" ? "selected" : '' ?>>-- Trám răng</option>
-                                <option value="Nhổ răng" <?= !empty($status) && $status == "Nhổ răng" ? "selected" : '' ?>>-- Nhổ răng</option>
-                                <option value="Cạo vôi răng" <?= !empty($status) && $status == "Cạo vôi răng" ? "selected" : '' ?>>-- Cạo vôi răng</option>
-                                <option value="Khác" <?= !empty($status) && $status == "Khác" ? "selected" : '' ?>>-- Khác</option>
-                            </select>
-                            <br>
-                            <button class="btn btn-info" type="submit">
-                                <i class="fa fa-search" aria-hidden="true"></i>
-                                Tìm Kiếm
-                            </button>
+                                </select>
+                                <br>
+                                <button class="btn btn-info" type="submit">
+                                    <i class="fa fa-search" aria-hidden="true"></i>
+                                    Tìm Kiếm
+                                </button>
                             </form>
                         </div>
                     </div>
@@ -148,24 +132,24 @@
                                             <tbody>
                                             @if(!empty($hosobenhnhan))
                                                 @foreach($hosobenhnhan as $key => $value)
-                                            <tr>
-                                                <td style="text-align: center">{{++$key}}</td>
-                                                <td style="text-align: center">
-                                                    <a href="{{asset('storage/'.$value->image)}}" target="_blank">
-                                                    <img style="height: 50px" src="{{asset('storage/'.$value->image)}}" alt="">
-                                                    </a>
-                                                </td>
-                                                <td style="text-align: center; ">
-                                                    <a href="{{route('hosobenhnhan.detail',$value->id)}}" style="color: #7e1d0c ">
-                                                        {{$value->customer_name}}
-                                                    </a>
-                                                </td>
-                                                <td style="text-align: center">{{$value->gioi_tinh}}</td>
-                                                <td style="text-align: center">{{date("d/m/Y", strtotime($value->date_of_birth))}}</td>
-                                                <td style="text-align: center">{{$value->phone}}</td>
-                                                <td style="text-align: center">{{date('d/m/Y', strtotime($value->date_start))}}</td>
-                                                <td style="text-align: center">{{$value->status}}</td>
-                                            </tr>
+                                                    <tr>
+                                                        <td style="text-align: center">{{++$key}}</td>
+                                                        <td style="text-align: center">
+                                                            <a href="{{asset('storage/'.$value->image)}}" target="_blank">
+                                                                <img style="height: 50px" src="{{asset('storage/'.$value->image)}}" alt="">
+                                                            </a>
+                                                        </td>
+                                                        <td style="text-align: center; ">
+                                                            <a href="{{route('hosobenhnhan.detail',$value->id)}}" style="color: #7e1d0c ">
+                                                                {{$value->customer_name}}
+                                                            </a>
+                                                        </td>
+                                                        <td style="text-align: center">{{$value->gioi_tinh}}</td>
+                                                        <td style="text-align: center">{{date("d/m/Y", strtotime($value->date_of_birth))}}</td>
+                                                        <td style="text-align: center">{{$value->phone}}</td>
+                                                        <td style="text-align: center">{{date('d/m/Y', strtotime($value->date_start))}}</td>
+                                                        <td style="text-align: center">{{$value->status}}</td>
+                                                    </tr>
                                                 @endforeach
                                             @endif
                                             </tbody>

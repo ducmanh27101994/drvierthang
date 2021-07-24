@@ -41,6 +41,72 @@ class HosobenhnhanController extends Controller
 
     }
 
+    public function list_hosobenhnhanchinhnha(){
+
+        $user_session = Session::get('loginAuth');
+        if (!empty($user_session) && $user_session == "drvietthang@gmail.com"){
+            $hosobenhnhan = DB::table('hosobenhnhan')->select('*')->orderBy('id','desc')
+                ->whereIn('status', ["Chỉnh nha", "Chỉnh nha - Thu thập dữ liệu", "Chỉnh nha - Gửi kế hoạch điều trị",
+                    "Chỉnh nha - Đã gán mắc cài", "Chỉnh nha - Hoàn tất", "Chỉnh nha - Hủy điều trị" ])
+                ->simplePaginate(15);
+            $count_hosobenhnhan = DB::table('hosobenhnhan')
+                ->whereIn('status', ["Chỉnh nha", "Chỉnh nha - Thu thập dữ liệu", "Chỉnh nha - Gửi kế hoạch điều trị",
+                    "Chỉnh nha - Đã gán mắc cài", "Chỉnh nha - Hoàn tất", "Chỉnh nha - Hủy điều trị" ])
+                ->count();
+        } else {
+            $hosobenhnhan = DB::table('hosobenhnhan')->select('*')->orderBy('id','desc')->where('email','=',"$user_session")
+                ->whereIn('status', ["Chỉnh nha", "Chỉnh nha - Thu thập dữ liệu", "Chỉnh nha - Gửi kế hoạch điều trị",
+                    "Chỉnh nha - Đã gán mắc cài", "Chỉnh nha - Hoàn tất", "Chỉnh nha - Hủy điều trị" ])
+                ->simplePaginate(15);
+            $count_hosobenhnhan = DB::table('hosobenhnhan')->select('*')->orderBy('id','desc')->where('email','=',"$user_session")
+                ->whereIn('status', ["Chỉnh nha", "Chỉnh nha - Thu thập dữ liệu", "Chỉnh nha - Gửi kế hoạch điều trị",
+                    "Chỉnh nha - Đã gán mắc cài", "Chỉnh nha - Hoàn tất", "Chỉnh nha - Hủy điều trị" ])
+                ->count();
+        }
+
+
+        return view('admin.list_hosobenhnhanrang',compact("hosobenhnhan",'count_hosobenhnhan'));
+
+    }
+
+
+    public function search_hosobenhnhan(){
+
+        $user_session = Session::get('loginAuth');
+        if (!empty($user_session) && $user_session == "drvietthang@gmail.com"){
+            $hosobenhnhan =
+                DB::table('hosobenhnhan')->select('*')->orderBy('id','desc')
+                    ->where('customer_name', 'LIKE','%'.\request()->customer_name_search . '%')
+                    ->when(\request()->status, function ($query){
+                        $query->where('status', request()->status);
+                    })
+                    ->simplePaginate(15);
+            $count_hosobenhnhan = DB::table('hosobenhnhan')
+                ->where('customer_name', 'LIKE','%'.\request()->customer_name_search . '%')
+                ->when(\request()->status, function ($query){
+                    $query->where('status', request()->status);
+                })
+                ->count();
+        } else {
+            $hosobenhnhan = DB::table('hosobenhnhan')->select('*')->orderBy('id','desc')->where('email','=',"$user_session")
+                ->where('customer_name', 'LIKE','%'.\request()->customer_name_search . '%')
+                ->when(\request()->status, function ($query){
+                    $query->where('status', request()->status);
+                })
+                ->simplePaginate(15);
+            $count_hosobenhnhan = DB::table('hosobenhnhan')->select('*')->orderBy('id','desc')->where('email','=',"$user_session")
+                ->where('customer_name', 'LIKE','%'.\request()->customer_name_search . '%')
+                ->when(\request()->status, function ($query){
+                    $query->where('status', request()->status);
+                })
+                ->count();
+        }
+
+        return view('admin.list_hosobenhnhan',compact("hosobenhnhan",'count_hosobenhnhan'));
+
+
+    }
+
     public function store_hosobenhnhan(Request $request){
 
 
@@ -541,6 +607,56 @@ class HosobenhnhanController extends Controller
         $phantichphim = Phantichmauham::findOrFail($id);
 
         return \view('admin.detail.vto',compact('hosobenhnhan','phantichphim'));
+    }
+
+    public function store_vto(Request $request, $id){
+
+        $phantichphim = Phantichmauham::findOrFail($id);
+
+        if (!empty($request->chenchucrang)){
+            $phantichphim->chenchucrang = implode(",", $request->chenchucrang);
+        }
+        if (!empty($request->duongcongspee)){
+            $phantichphim->duongcongspee = implode(",", $request->duongcongspee);
+        }
+        if (!empty($request->duonggiuahieuchinh)){
+            $phantichphim->duonggiuahieuchinh = implode(",", $request->duonggiuahieuchinh);
+        }
+        if (!empty($request->piprangcua)){
+            $phantichphim->piprangcua = implode(",", $request->piprangcua);
+        }
+        if (!empty($request->nhorang)){
+            $phantichphim->nhorang = implode(",", $request->nhorang);
+        }
+        if (!empty($request->dixa)){
+            $phantichphim->dixa = implode(",", $request->dixa);
+        }
+        if (!empty($request->nongham)){
+            $phantichphim->nongham = implode(",", $request->nongham);
+        }
+        if (!empty($request->maike)){
+            $phantichphim->maike = implode(",", $request->maike);
+        }
+
+        $phantichphim->hamduoi_1 = $request->hamduoi_1;
+        $phantichphim->hamduoi_2 = $request->hamduoi_2;
+        $phantichphim->hamduoi_3 = $request->hamduoi_3;
+        $phantichphim->hamduoi_4 = $request->hamduoi_4;
+        $phantichphim->hamduoi_4 = $request->hamduoi_4;
+        $phantichphim->hamtren_1 = $request->hamtren_1;
+        $phantichphim->hamtren_2 = $request->hamtren_2;
+        $phantichphim->hamtren_3 = $request->hamtren_3;
+        $phantichphim->hamtren_4 = $request->hamtren_4;
+
+        if (!empty($request->di_chuyen_rang)){
+            $phantichphim->di_chuyen_rang = implode(",", $request->di_chuyen_rang);
+        }
+
+        $phantichphim->save();
+
+        toastr()->success('Lưu thành công', 'Thành Công !');
+        return back();
+
     }
 
 
