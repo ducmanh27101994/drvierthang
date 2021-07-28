@@ -15,7 +15,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/command',function(){
     \Illuminate\Support\Facades\Artisan::call('storage:link');
+    echo "link - ok";
 });
+
+
 Route::get('/', [\App\Http\Controllers\UserController::class,"indexLogin"])->name('login.index');
 Route::get('/login', [\App\Http\Controllers\UserController::class,"indexLogin"])->name('login.index');
 Route::post('/login', [\App\Http\Controllers\UserController::class,'storeLoginAdmin'])->name('login.store');
@@ -47,6 +50,11 @@ Route::middleware([\App\Http\Middleware\checkLogin::class])->prefix('/')->group(
     Route::get('/index_thuvientuvan/{id}', [\App\Http\Controllers\HosobenhnhanController::class,'index_thuvientuvan'])->name('index.thuvientuvan');
     Route::get('/index_image/{id}', [\App\Http\Controllers\HosobenhnhanController::class,'index_image'])->name('index.image');
     Route::post('/index_image', [\App\Http\Controllers\HosobenhnhanController::class,'store_image'])->name('store.image');
+    Route::post('/albums', [\App\Http\Controllers\HosobenhnhanController::class,'store_album'])->name('store.albums');
+    Route::get('/list_image/{id}/{list}', [\App\Http\Controllers\HosobenhnhanController::class,'list_image'])->name('list.image');
+
+
+
     Route::get('/quatrinhdieutri/{id}', [\App\Http\Controllers\HosobenhnhanController::class,'index_quatrinhdieutri'])->name('index.quatrinhdieutri');
     Route::post('/quatrinhdieutri', [\App\Http\Controllers\HosobenhnhanController::class,'store_quatrinhdieutri'])->name('store.quatrinhdieutri');
     Route::get('/kehoachdieutri/{id}', [\App\Http\Controllers\HosobenhnhanController::class,'index_kehoachdieutri'])->name('index.kehoachdieutri');
@@ -61,6 +69,9 @@ Route::middleware([\App\Http\Middleware\checkLogin::class])->prefix('/')->group(
 
     Route::get('/search_list_hosobenhnhan', [\App\Http\Controllers\HosobenhnhanController::class,'search_hosobenhnhan'])->name('search.hosobenhnhan');
     Route::get('/hosobenhnhanrang', [\App\Http\Controllers\HosobenhnhanController::class,'list_hosobenhnhanchinhnha'])->name('index.hosobenhnhanrang');
+
+    Route::post('/pdf/{id}', [\App\Http\Controllers\HosobenhnhanController::class,'pdf'])->name('pdf');
+    Route::get('/view_test/{id}', [\App\Http\Controllers\HosobenhnhanController::class,'view_test'])->name('view_test');
 
 
 

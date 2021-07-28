@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Albums;
 use App\Models\Images;
 use App\Models\Khamngoaimat;
 use App\Models\Phantichmauham;
+use App\Models\Photos;
 use App\Models\Quatrinhdieutri;
 use App\Models\Tuvantaichinh;
+use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Http\Request;
 use App\Models\Hosobenhnhan;
 use Illuminate\Support\Facades\DB;
@@ -14,101 +17,106 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
+
 class HosobenhnhanController extends Controller
 {
     //
-    public function index_hosobenhnhan(){
+    public function index_hosobenhnhan()
+    {
 
         return view('admin.hosobenhnhan');
 
     }
 
-    public function list_hosobenhnhan(){
+    public function list_hosobenhnhan()
+    {
 
         $user_session = Session::get('loginAuth');
-        if (!empty($user_session) && $user_session == "drvietthang@gmail.com"){
-            $hosobenhnhan = DB::table('hosobenhnhan')->select('*')->orderBy('id','desc')->simplePaginate(15);
+        if (!empty($user_session) && $user_session == "drvietthang@gmail.com") {
+            $hosobenhnhan = DB::table('hosobenhnhan')->select('*')->orderBy('id', 'desc')->simplePaginate(15);
             $count_hosobenhnhan = DB::table('hosobenhnhan')->count();
         } else {
-            $hosobenhnhan = DB::table('hosobenhnhan')->select('*')->orderBy('id','desc')->where('email','=',"$user_session")
+            $hosobenhnhan = DB::table('hosobenhnhan')->select('*')->orderBy('id', 'desc')->where('email', '=', "$user_session")
                 ->simplePaginate(15);
-            $count_hosobenhnhan = DB::table('hosobenhnhan')->select('*')->orderBy('id','desc')->where('email','=',"$user_session")
+            $count_hosobenhnhan = DB::table('hosobenhnhan')->select('*')->orderBy('id', 'desc')->where('email', '=', "$user_session")
                 ->count();
         }
 
 
-        return view('admin.list_hosobenhnhan',compact("hosobenhnhan",'count_hosobenhnhan'));
+        return view('admin.list_hosobenhnhan', compact("hosobenhnhan", 'count_hosobenhnhan'));
 
     }
 
-    public function list_hosobenhnhanchinhnha(){
+    public function list_hosobenhnhanchinhnha()
+    {
 
         $user_session = Session::get('loginAuth');
-        if (!empty($user_session) && $user_session == "drvietthang@gmail.com"){
-            $hosobenhnhan = DB::table('hosobenhnhan')->select('*')->orderBy('id','desc')
+        if (!empty($user_session) && $user_session == "drvietthang@gmail.com") {
+            $hosobenhnhan = DB::table('hosobenhnhan')->select('*')->orderBy('id', 'desc')
                 ->whereIn('status', ["Chỉnh nha", "Chỉnh nha - Thu thập dữ liệu", "Chỉnh nha - Gửi kế hoạch điều trị",
-                    "Chỉnh nha - Đã gán mắc cài", "Chỉnh nha - Hoàn tất", "Chỉnh nha - Hủy điều trị" ])
+                    "Chỉnh nha - Đã gán mắc cài", "Chỉnh nha - Hoàn tất", "Chỉnh nha - Hủy điều trị"])
                 ->simplePaginate(15);
             $count_hosobenhnhan = DB::table('hosobenhnhan')
                 ->whereIn('status', ["Chỉnh nha", "Chỉnh nha - Thu thập dữ liệu", "Chỉnh nha - Gửi kế hoạch điều trị",
-                    "Chỉnh nha - Đã gán mắc cài", "Chỉnh nha - Hoàn tất", "Chỉnh nha - Hủy điều trị" ])
+                    "Chỉnh nha - Đã gán mắc cài", "Chỉnh nha - Hoàn tất", "Chỉnh nha - Hủy điều trị"])
                 ->count();
         } else {
-            $hosobenhnhan = DB::table('hosobenhnhan')->select('*')->orderBy('id','desc')->where('email','=',"$user_session")
+            $hosobenhnhan = DB::table('hosobenhnhan')->select('*')->orderBy('id', 'desc')->where('email', '=', "$user_session")
                 ->whereIn('status', ["Chỉnh nha", "Chỉnh nha - Thu thập dữ liệu", "Chỉnh nha - Gửi kế hoạch điều trị",
-                    "Chỉnh nha - Đã gán mắc cài", "Chỉnh nha - Hoàn tất", "Chỉnh nha - Hủy điều trị" ])
+                    "Chỉnh nha - Đã gán mắc cài", "Chỉnh nha - Hoàn tất", "Chỉnh nha - Hủy điều trị"])
                 ->simplePaginate(15);
-            $count_hosobenhnhan = DB::table('hosobenhnhan')->select('*')->orderBy('id','desc')->where('email','=',"$user_session")
+            $count_hosobenhnhan = DB::table('hosobenhnhan')->select('*')->orderBy('id', 'desc')->where('email', '=', "$user_session")
                 ->whereIn('status', ["Chỉnh nha", "Chỉnh nha - Thu thập dữ liệu", "Chỉnh nha - Gửi kế hoạch điều trị",
-                    "Chỉnh nha - Đã gán mắc cài", "Chỉnh nha - Hoàn tất", "Chỉnh nha - Hủy điều trị" ])
+                    "Chỉnh nha - Đã gán mắc cài", "Chỉnh nha - Hoàn tất", "Chỉnh nha - Hủy điều trị"])
                 ->count();
         }
 
 
-        return view('admin.list_hosobenhnhanrang',compact("hosobenhnhan",'count_hosobenhnhan'));
+        return view('admin.list_hosobenhnhanrang', compact("hosobenhnhan", 'count_hosobenhnhan'));
 
     }
 
 
-    public function search_hosobenhnhan(){
+    public function search_hosobenhnhan()
+    {
 
         $user_session = Session::get('loginAuth');
-        if (!empty($user_session) && $user_session == "drvietthang@gmail.com"){
+        if (!empty($user_session) && $user_session == "drvietthang@gmail.com") {
             $hosobenhnhan =
-                DB::table('hosobenhnhan')->select('*')->orderBy('id','desc')
-                    ->where('customer_name', 'LIKE','%'.\request()->customer_name_search . '%')
-                    ->when(\request()->status, function ($query){
+                DB::table('hosobenhnhan')->select('*')->orderBy('id', 'desc')
+                    ->where('customer_name', 'LIKE', '%' . \request()->customer_name_search . '%')
+                    ->when(\request()->status, function ($query) {
                         $query->where('status', request()->status);
                     })
                     ->simplePaginate(15);
             $count_hosobenhnhan = DB::table('hosobenhnhan')
-                ->where('customer_name', 'LIKE','%'.\request()->customer_name_search . '%')
-                ->when(\request()->status, function ($query){
+                ->where('customer_name', 'LIKE', '%' . \request()->customer_name_search . '%')
+                ->when(\request()->status, function ($query) {
                     $query->where('status', request()->status);
                 })
                 ->count();
         } else {
-            $hosobenhnhan = DB::table('hosobenhnhan')->select('*')->orderBy('id','desc')->where('email','=',"$user_session")
-                ->where('customer_name', 'LIKE','%'.\request()->customer_name_search . '%')
-                ->when(\request()->status, function ($query){
+            $hosobenhnhan = DB::table('hosobenhnhan')->select('*')->orderBy('id', 'desc')->where('email', '=', "$user_session")
+                ->where('customer_name', 'LIKE', '%' . \request()->customer_name_search . '%')
+                ->when(\request()->status, function ($query) {
                     $query->where('status', request()->status);
                 })
                 ->simplePaginate(15);
-            $count_hosobenhnhan = DB::table('hosobenhnhan')->select('*')->orderBy('id','desc')->where('email','=',"$user_session")
-                ->where('customer_name', 'LIKE','%'.\request()->customer_name_search . '%')
-                ->when(\request()->status, function ($query){
+            $count_hosobenhnhan = DB::table('hosobenhnhan')->select('*')->orderBy('id', 'desc')->where('email', '=', "$user_session")
+                ->where('customer_name', 'LIKE', '%' . \request()->customer_name_search . '%')
+                ->when(\request()->status, function ($query) {
                     $query->where('status', request()->status);
                 })
                 ->count();
         }
 
-        return view('admin.list_hosobenhnhan',compact("hosobenhnhan",'count_hosobenhnhan'));
+        return view('admin.list_hosobenhnhan', compact("hosobenhnhan", 'count_hosobenhnhan'));
 
 
     }
 
-    public function store_hosobenhnhan(Request $request){
-
+    public function store_hosobenhnhan(Request $request)
+    {
 
 
         $hosobenhnhan = new Hosobenhnhan();
@@ -126,10 +134,10 @@ class HosobenhnhanController extends Controller
         $hosobenhnhan->so_dien_thoai_ban = $request->so_dien_thoai_ban;
         $hosobenhnhan->dan_toc = $request->dan_toc;
 
-        if (!empty($request->tieu_su_y_khoa)){
+        if (!empty($request->tieu_su_y_khoa)) {
             $hosobenhnhan->tieu_su_y_khoa = implode(",", $request->tieu_su_y_khoa);
         }
-        if (!empty($request->ly_do_den_kham)){
+        if (!empty($request->tieu_su_nha_khoa)) {
             $hosobenhnhan->tieu_su_nha_khoa = implode(",", $request->tieu_su_nha_khoa);
         }
 
@@ -137,9 +145,9 @@ class HosobenhnhanController extends Controller
         $hosobenhnhan->thuoc_dang_su_dung = $request->thuoc_dang_su_dung;
         $hosobenhnhan->status = $request->status;
 
-        if($request->hasFile('image')){
+        if ($request->hasFile('image')) {
             $image = $request->file('image');
-            $path = $image->store('images','public');
+            $path = $image->store('images', 'public');
             $hosobenhnhan->image = $path;
         }
 
@@ -159,16 +167,18 @@ class HosobenhnhanController extends Controller
     }
 
 
-    public function edit_hosobenhnhan($id){
+    public function edit_hosobenhnhan($id)
+    {
 
         $hosobenhnhan = Hosobenhnhan::findOrFail($id);
 
         \Illuminate\Support\Facades\View::share('hosobenhnhan');
 
-        return view('admin.detail.edit_hanhchinh',compact('hosobenhnhan'));
+        return view('admin.detail.edit_hanhchinh', compact('hosobenhnhan'));
     }
 
-    public function edit_hanhchinh(Request $request,$id){
+    public function edit_hanhchinh(Request $request, $id)
+    {
 
         $hosobenhnhan = Hosobenhnhan::findOrFail($id);
         $hosobenhnhan->date_start = $request->date_start;
@@ -185,10 +195,10 @@ class HosobenhnhanController extends Controller
         $hosobenhnhan->so_dien_thoai_ban = $request->so_dien_thoai_ban;
         $hosobenhnhan->dan_toc = $request->dan_toc;
 
-        if (!empty($request->tieu_su_y_khoa)){
+        if (!empty($request->tieu_su_y_khoa)) {
             $hosobenhnhan->tieu_su_y_khoa = implode(",", $request->tieu_su_y_khoa);
         }
-        if (!empty($request->ly_do_den_kham)){
+        if (!empty($request->tieu_su_nha_khoa)) {
             $hosobenhnhan->tieu_su_nha_khoa = implode(",", $request->tieu_su_nha_khoa);
         }
 
@@ -196,14 +206,14 @@ class HosobenhnhanController extends Controller
         $hosobenhnhan->thuoc_dang_su_dung = $request->thuoc_dang_su_dung;
         $hosobenhnhan->status = $request->status;
 
-        if (!empty($request->hasFile('image'))){
-            if ($request->hasFile('image')){
+        if (!empty($request->hasFile('image'))) {
+            if ($request->hasFile('image')) {
                 $currentImg = $hosobenhnhan->image;
-                if($currentImg){
-                    Storage::delete('/public'.$currentImg);
+                if ($currentImg) {
+                    Storage::delete('/public' . $currentImg);
                 }
                 $image = $request->file('image');
-                $path = $image->store('images','public');
+                $path = $image->store('images', 'public');
                 $hosobenhnhan->image = $path;
             }
         }
@@ -216,14 +226,16 @@ class HosobenhnhanController extends Controller
 
     }
 
-    public function edit_khamtrongmieng($id){
+    public function edit_khamtrongmieng($id)
+    {
 
         $hosobenhnhan = Hosobenhnhan::findOrFail($id);
 
-        return view('admin.detail.edit_khamtrongmieng',compact('hosobenhnhan'));
+        return view('admin.detail.edit_khamtrongmieng', compact('hosobenhnhan'));
     }
 
-    public function store_khamtrongmieng(Request $request,$id){
+    public function store_khamtrongmieng(Request $request, $id)
+    {
 
         $hosobenhnhan = Hosobenhnhan::findOrFail($id);
 
@@ -255,15 +267,17 @@ class HosobenhnhanController extends Controller
         return back();
     }
 
-    public function edit_khamngoaimat($id){
+    public function edit_khamngoaimat($id)
+    {
 
-//        $hosobenhnhan = Khamngoaimat::findOrFail($id);
-        $hosobenhnhan = Khamngoaimat::find($id);
+        $hosobenhnhan = Hosobenhnhan::findOrFail($id);
+        $khamngoaimat = Khamngoaimat::find($id);
 
-        return view('admin.detail.edit_khamngoaimat',compact('hosobenhnhan'));
+        return view('admin.detail.edit_khamngoaimat', compact('hosobenhnhan','khamngoaimat'));
     }
 
-    public function store_khamngoaimat(Request $request,$id){
+    public function store_khamngoaimat(Request $request, $id)
+    {
 
         $khamngoaimat = Khamngoaimat::findOrFail($id);
         $khamngoaimat->knm_dangmat = $request->knm_dangmat;
@@ -280,16 +294,16 @@ class HosobenhnhanController extends Controller
         $khamngoaimat->knm_cuongcomoi = $request->knm_cuongcomoi;
         $khamngoaimat->knm_dohomoi = $request->knm_dohomoi;
         $khamngoaimat->knm_tho = $request->knm_tho;
-        if (!empty($request->knm_canho)){
+        if (!empty($request->knm_canho)) {
             $khamngoaimat->knm_canho = implode(",", $request->knm_canho);
         }
-        if (!empty($request->knm_cancheo)){
+        if (!empty($request->knm_cancheo)) {
             $khamngoaimat->knm_cancheo = implode(",", $request->knm_cancheo);
         }
-        if (!empty($request->knm_dayluoi)){
+        if (!empty($request->knm_dayluoi)) {
             $khamngoaimat->knm_dayluoi = implode(",", $request->knm_dayluoi);
         }
-        if (!empty($request->knm_khac)){
+        if (!empty($request->knm_khac)) {
             $khamngoaimat->knm_khac = implode(",", $request->knm_khac);
         }
 
@@ -299,14 +313,13 @@ class HosobenhnhanController extends Controller
         $khamngoaimat->knm_lechkhiha = $request->knm_lechkhiha;
         $khamngoaimat->knm_dohatoida = $request->knm_dohatoida;
         $khamngoaimat->knm_daudau = $request->knm_daudau;
-        if (!empty($request->knm_taitrai)){
+        if (!empty($request->knm_taitrai)) {
             $khamngoaimat->knm_taitrai = implode(",", $request->knm_taitrai);
         }
-        if (!empty($request->knm_taiphai)){
+        if (!empty($request->knm_taiphai)) {
             $khamngoaimat->knm_taiphai = implode(",", $request->knm_taiphai);
         }
         $khamngoaimat->knm_ghichu = $request->knm_ghichu;
-
 
 
         $khamngoaimat->save();
@@ -317,20 +330,22 @@ class HosobenhnhanController extends Controller
 
     }
 
-    public function edit_tuvantaichinh($id){
+    public function edit_tuvantaichinh($id)
+    {
 
         $hosobenhnhan = Hosobenhnhan::find($id);
 
         $tuvantaichinh = DB::table('hosobenhnhan')
-            ->join('tuvantaichinh','hosobenhnhan.id','tuvantaichinh.hosobenhnhan_id')
+            ->join('tuvantaichinh', 'hosobenhnhan.id', 'tuvantaichinh.hosobenhnhan_id')
             ->select('tuvantaichinh.*')
-            ->where('tuvantaichinh.hosobenhnhan_id','=',"$id")
+            ->where('tuvantaichinh.hosobenhnhan_id', '=', "$id")
             ->get();
 
-        return view('admin.detail.edit_tuvantaichinh', compact('hosobenhnhan','tuvantaichinh'));
+        return view('admin.detail.edit_tuvantaichinh', compact('hosobenhnhan', 'tuvantaichinh'));
     }
 
-    public function store_tuvantaichinh(Request $request){
+    public function store_tuvantaichinh(Request $request)
+    {
 
         $tuvantaichinh = new Tuvantaichinh();
         $tuvantaichinh->tvtc_tendanhmuc = $request->tvtc_tendanhmuc;
@@ -349,11 +364,12 @@ class HosobenhnhanController extends Controller
 
     }
 
-    public function edit_tuvantaichinh_store(Request $request,$id){
+    public function edit_tuvantaichinh_store(Request $request, $id)
+    {
 
         $hosobenhnhan = Hosobenhnhan::findOrFail($id);
 
-        if (!empty($request->tvtc_mongmuondieutri)){
+        if (!empty($request->tvtc_mongmuondieutri)) {
             $hosobenhnhan->tvtc_mongmuondieutri = implode(",", $request->tvtc_mongmuondieutri);
         }
         $hosobenhnhan->tvtc_thoigiantoida = $request->tvtc_thoigiantoida;
@@ -368,53 +384,96 @@ class HosobenhnhanController extends Controller
         return back();
     }
 
-    public function index_thuvientuvan($id){
+    public function index_thuvientuvan($id)
+    {
         $hosobenhnhan = Hosobenhnhan::findOrFail($id);
-        return view('admin.detail.thuvientuvan',compact('hosobenhnhan'));
+        return view('admin.detail.thuvientuvan', compact('hosobenhnhan'));
     }
 
-    public function index_image($id){
+    public function index_image($id)
+    {
         $hosobenhnhan = Hosobenhnhan::find($id);
 
-        $images = DB::table('hosobenhnhan')
-            ->join('images','hosobenhnhan.id','images.hosobenhnhan_id')
-            ->select('images.*')
-            ->where('images.hosobenhnhan_id','=',"$id")
-            ->simplePaginate(9);
+        $albums = DB::table('hosobenhnhan')
+            ->join('albums', 'hosobenhnhan.id', 'albums.hosobenhnhan_id')
+            ->select('albums.*')
+            ->where('albums.hosobenhnhan_id', '=', "$id")
+            ->get();
 
-        return view('admin.detail.edit_image', compact('hosobenhnhan','images'));
+
+
+        return view('admin.detail.edit_image', compact('hosobenhnhan', 'albums'));
     }
 
-    public function store_image(Request $request){
+    public function list_image($id,$list){
 
-        $images = new Images();
+        $hosobenhnhan = Hosobenhnhan::find($id);
 
-        if($request->hasFile('image')){
-            $image = $request->file('image');
-            $path = $image->store('images','public');
-            $images->image = $path;
+        $albums = DB::table('hosobenhnhan')
+            ->join('albums', 'hosobenhnhan.id', 'albums.hosobenhnhan_id')
+            ->select('albums.*')
+            ->where('albums.hosobenhnhan_id', '=', "$id")
+            ->get();
+
+        $image = DB::table('albums')
+            ->join('photo','albums.id','photo.album_id')
+            ->select('photo.*')
+            ->where('photo.album_id', '=', "$list")
+            ->get();
+
+        return view('admin.detail.edit_image', compact( 'hosobenhnhan','albums','image'));
+    }
+
+
+    public function store_image(Request $request)
+    {
+
+        if ($request->hasfile('images')) {
+            $images = $request->file('images');
+
+            foreach($images as $image) {
+                $path = $image->store('images', 'public');
+
+                Photos::create([
+                    'image' => $path,
+                    'album_id'=> $request->album_id
+                ]);
+            }
         }
 
-        $images->hosobenhnhan_id = $request->hosobenhnhan_id;
-        $images->save();
         toastr()->success('Lưu thành công', 'Thành Công !');
         return back();
     }
 
-    public function index_quatrinhdieutri($id){
-        $hosobenhnhan = Hosobenhnhan::find($id);
+    public function store_album(Request $request)
+    {
 
-        $quatrinhdieutri = DB::table('hosobenhnhan')
-            ->join('quatrinhdieutri','hosobenhnhan.id','quatrinhdieutri.hosobenhnhan_id')
-            ->select('quatrinhdieutri.*')
-            ->where('quatrinhdieutri.hosobenhnhan_id','=',"$id")
-            ->get();
+        $albums = new Albums();
+        $albums->name = $request->name;
 
-        return view('admin.detail.quatrinhdieutri', compact('hosobenhnhan','quatrinhdieutri'));
+        $albums->hosobenhnhan_id = $request->hosobenhnhan_id;
+        $albums->save();
+        toastr()->success('Lưu thành công', 'Thành Công !');
+        return back();
 
     }
 
-    public function store_quatrinhdieutri(Request $request){
+    public function index_quatrinhdieutri($id)
+    {
+        $hosobenhnhan = Hosobenhnhan::find($id);
+
+        $quatrinhdieutri = DB::table('hosobenhnhan')
+            ->join('quatrinhdieutri', 'hosobenhnhan.id', 'quatrinhdieutri.hosobenhnhan_id')
+            ->select('quatrinhdieutri.*')
+            ->where('quatrinhdieutri.hosobenhnhan_id', '=', "$id")
+            ->get();
+
+        return view('admin.detail.quatrinhdieutri', compact('hosobenhnhan', 'quatrinhdieutri'));
+
+    }
+
+    public function store_quatrinhdieutri(Request $request)
+    {
 
         $quatrinhdieutri = new Quatrinhdieutri();
         $quatrinhdieutri->ngay = $request->ngay;
@@ -429,7 +488,8 @@ class HosobenhnhanController extends Controller
         return back();
     }
 
-    public function index_kehoachdieutri($id){
+    public function index_kehoachdieutri($id)
+    {
 
         $hosobenhnhan = Hosobenhnhan::find($id);
 
@@ -438,7 +498,8 @@ class HosobenhnhanController extends Controller
 
     }
 
-    public function store_kehoachdieutri(Request $request,$id){
+    public function store_kehoachdieutri(Request $request, $id)
+    {
 
         $hosobenhnhan = Hosobenhnhan::findOrFail($id);
 
@@ -456,17 +517,19 @@ class HosobenhnhanController extends Controller
         return back();
     }
 
-    public function index_phantichphim($id){
+    public function index_phantichphim($id)
+    {
 
         $hosobenhnhan = Hosobenhnhan::findOrFail($id);
 
         $phantichphim = Phantichmauham::findOrFail($id);
 
-        return \view('admin.detail.phantichphim',compact('hosobenhnhan','phantichphim'));
+        return \view('admin.detail.phantichphim', compact('hosobenhnhan', 'phantichphim'));
 
     }
 
-    public function store_phantichphim(Request $request, $id){
+    public function store_phantichphim(Request $request, $id)
+    {
 
         $phantichphim = Phantichmauham::findOrFail($id);
 
@@ -500,69 +563,69 @@ class HosobenhnhanController extends Controller
         $phantichphim->ptp_donghiengrangcuatren = $request->ptp_donghiengrangcuatren;
         $phantichphim->ptp_donhorangcuahamtren = $request->ptp_donhorangcuahamtren;
 
-        if (!empty($request->hasFile('khac'))){
-            if ($request->hasFile('khac')){
+        if (!empty($request->hasFile('khac'))) {
+            if ($request->hasFile('khac')) {
                 $currentImg = $phantichphim->khac;
-                if($currentImg){
-                    Storage::delete('/public'.$currentImg);
+                if ($currentImg) {
+                    Storage::delete('/public' . $currentImg);
                 }
                 $image = $request->file('khac');
-                $path = $image->store('images','public');
+                $path = $image->store('images', 'public');
                 $phantichphim->khac = $path;
             }
         }
-        if (!empty($request->hasFile('xuongbantay'))){
-            if ($request->hasFile('xuongbantay')){
+        if (!empty($request->hasFile('xuongbantay'))) {
+            if ($request->hasFile('xuongbantay')) {
                 $currentImg = $phantichphim->xuongbantay;
-                if($currentImg){
-                    Storage::delete('/public'.$currentImg);
+                if ($currentImg) {
+                    Storage::delete('/public' . $currentImg);
                 }
                 $image = $request->file('xuongbantay');
-                $path = $image->store('images','public');
+                $path = $image->store('images', 'public');
                 $phantichphim->xuongbantay = $path;
             }
         }
-        if (!empty($request->hasFile('phantichphim'))){
-            if ($request->hasFile('phantichphim')){
+        if (!empty($request->hasFile('phantichphim'))) {
+            if ($request->hasFile('phantichphim')) {
                 $currentImg = $phantichphim->phantichphim;
-                if($currentImg){
-                    Storage::delete('/public'.$currentImg);
+                if ($currentImg) {
+                    Storage::delete('/public' . $currentImg);
                 }
                 $image = $request->file('phantichphim');
-                $path = $image->store('images','public');
+                $path = $image->store('images', 'public');
                 $phantichphim->phantichphim = $path;
             }
         }
-        if (!empty($request->hasFile('phantichmauham'))){
-            if ($request->hasFile('phantichmauham')){
+        if (!empty($request->hasFile('phantichmauham'))) {
+            if ($request->hasFile('phantichmauham')) {
                 $currentImg = $phantichphim->phantichmauham;
-                if($currentImg){
-                    Storage::delete('/public'.$currentImg);
+                if ($currentImg) {
+                    Storage::delete('/public' . $currentImg);
                 }
                 $image = $request->file('phantichmauham');
-                $path = $image->store('images','public');
+                $path = $image->store('images', 'public');
                 $phantichphim->phantichmauham = $path;
             }
         }
-        if (!empty($request->hasFile('vto'))){
-            if ($request->hasFile('vto')){
+        if (!empty($request->hasFile('vto'))) {
+            if ($request->hasFile('vto')) {
                 $currentImg = $phantichphim->vto;
-                if($currentImg){
-                    Storage::delete('/public'.$currentImg);
+                if ($currentImg) {
+                    Storage::delete('/public' . $currentImg);
                 }
                 $image = $request->file('vto');
-                $path = $image->store('images','public');
+                $path = $image->store('images', 'public');
                 $phantichphim->vto = $path;
             }
         }
-        if (!empty($request->hasFile('cantroxuong'))){
-            if ($request->hasFile('cantroxuong')){
+        if (!empty($request->hasFile('cantroxuong'))) {
+            if ($request->hasFile('cantroxuong')) {
                 $currentImg = $phantichphim->cantroxuong;
-                if($currentImg){
-                    Storage::delete('/public'.$currentImg);
+                if ($currentImg) {
+                    Storage::delete('/public' . $currentImg);
                 }
                 $image = $request->file('cantroxuong');
-                $path = $image->store('images','public');
+                $path = $image->store('images', 'public');
                 $phantichphim->cantroxuong = $path;
             }
         }
@@ -574,16 +637,18 @@ class HosobenhnhanController extends Controller
 
     }
 
-    public function index_phantichmauham($id){
+    public function index_phantichmauham($id)
+    {
 
         $hosobenhnhan = Hosobenhnhan::findOrFail($id);
 
         $phantichphim = Phantichmauham::findOrFail($id);
 
-        return \view('admin.detail.phantichmauham',compact('hosobenhnhan','phantichphim'));
+        return \view('admin.detail.phantichmauham', compact('hosobenhnhan', 'phantichphim'));
     }
 
-    public function store_phantichmauham(Request $request, $id){
+    public function store_phantichmauham(Request $request, $id)
+    {
         $phantichphim = Phantichmauham::findOrFail($id);
 
         $phantichphim->ptmh_bolton6_tren = $request->ptmh_bolton6_tren;
@@ -600,41 +665,43 @@ class HosobenhnhanController extends Controller
         return back();
     }
 
-    public function index_vto($id){
+    public function index_vto($id)
+    {
 
         $hosobenhnhan = Hosobenhnhan::findOrFail($id);
 
         $phantichphim = Phantichmauham::findOrFail($id);
 
-        return \view('admin.detail.vto',compact('hosobenhnhan','phantichphim'));
+        return \view('admin.detail.vto', compact('hosobenhnhan', 'phantichphim'));
     }
 
-    public function store_vto(Request $request, $id){
+    public function store_vto(Request $request, $id)
+    {
 
         $phantichphim = Phantichmauham::findOrFail($id);
 
-        if (!empty($request->chenchucrang)){
+        if (!empty($request->chenchucrang)) {
             $phantichphim->chenchucrang = implode(",", $request->chenchucrang);
         }
-        if (!empty($request->duongcongspee)){
+        if (!empty($request->duongcongspee)) {
             $phantichphim->duongcongspee = implode(",", $request->duongcongspee);
         }
-        if (!empty($request->duonggiuahieuchinh)){
+        if (!empty($request->duonggiuahieuchinh)) {
             $phantichphim->duonggiuahieuchinh = implode(",", $request->duonggiuahieuchinh);
         }
-        if (!empty($request->piprangcua)){
+        if (!empty($request->piprangcua)) {
             $phantichphim->piprangcua = implode(",", $request->piprangcua);
         }
-        if (!empty($request->nhorang)){
+        if (!empty($request->nhorang)) {
             $phantichphim->nhorang = implode(",", $request->nhorang);
         }
-        if (!empty($request->dixa)){
+        if (!empty($request->dixa)) {
             $phantichphim->dixa = implode(",", $request->dixa);
         }
-        if (!empty($request->nongham)){
+        if (!empty($request->nongham)) {
             $phantichphim->nongham = implode(",", $request->nongham);
         }
-        if (!empty($request->maike)){
+        if (!empty($request->maike)) {
             $phantichphim->maike = implode(",", $request->maike);
         }
 
@@ -648,7 +715,7 @@ class HosobenhnhanController extends Controller
         $phantichphim->hamtren_3 = $request->hamtren_3;
         $phantichphim->hamtren_4 = $request->hamtren_4;
 
-        if (!empty($request->di_chuyen_rang)){
+        if (!empty($request->di_chuyen_rang)) {
             $phantichphim->di_chuyen_rang = implode(",", $request->di_chuyen_rang);
         }
 
@@ -659,7 +726,76 @@ class HosobenhnhanController extends Controller
 
     }
 
+    public function view_test($id){
 
+        $hosobenhnhan = Hosobenhnhan::findOrFail($id);
+
+
+
+        if (!empty($request->pdf)){
+            $check_pdf = $request->pdf;
+        } else {
+            $check_pdf = [];
+        }
+
+        return view('pdf',compact('hosobenhnhan','check_pdf'));
+
+    }
+
+    public function pdf(Request $request, $id){
+
+        $hosobenhnhan = Hosobenhnhan::findOrFail($id);
+
+        $khamngoaimat = Khamngoaimat::findOrFail($id);
+
+        $phantichphim = Phantichmauham::findOrFail($id);
+
+        $tuvantaichinh = DB::table('hosobenhnhan')
+            ->join('tuvantaichinh', 'hosobenhnhan.id', 'tuvantaichinh.hosobenhnhan_id')
+            ->select('tuvantaichinh.*')
+            ->where('tuvantaichinh.hosobenhnhan_id', '=', "$id")
+            ->get();
+
+        $quatrinhdieutri = DB::table('hosobenhnhan')
+            ->join('quatrinhdieutri', 'hosobenhnhan.id', 'quatrinhdieutri.hosobenhnhan_id')
+            ->select('quatrinhdieutri.*')
+            ->where('quatrinhdieutri.hosobenhnhan_id', '=', "$id")
+            ->get();
+
+
+        $image = DB::table('hosobenhnhan')
+            ->join('albums', 'hosobenhnhan.id', 'albums.hosobenhnhan_id')
+            ->join('photo', 'albums.id', 'photo.album_id')
+            ->select('albums.*','photo.*')
+            ->where('albums.hosobenhnhan_id', '=', "$id")
+            ->get();
+
+//        $arr = [];
+//
+//        foreach ($albums as $key => $value){
+//            $image = DB::table('albums')
+//            ->join('photo','albums.id','photo.album_id')
+//            ->select('photo.*')
+//            ->where('photo.album_id', '=', "$value->id")
+//            ->get();
+//            $arr += [$value->name => $image];
+//        }
+
+
+
+
+        if (!empty($request->pdf)){
+            $check_pdf = $request->pdf;
+        } else {
+            $check_pdf = [];
+        }
+
+        // share data to view
+        $pdf = PDF::loadView('pdf', compact('hosobenhnhan','check_pdf','khamngoaimat','phantichphim','tuvantaichinh','quatrinhdieutri','image'));
+
+        // download PDF file with download method
+        return $pdf->download('Hồ Sơ Bệnh Nhân.pdf');
+    }
 
 
 }

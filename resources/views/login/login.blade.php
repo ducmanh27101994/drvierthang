@@ -37,10 +37,10 @@
                     <!-- Nested Row within Card Body -->
                     <style>
                         .bg-login-image{
-                            background: url("https://service.tienngay.vn/uploads/avatar/1626852587-a3e9c129cd27d4dd783aef2d7dca54e2.jpg");
+                            background: url("https://service.egate.global/uploads/avatar/1627402908-ae6be3f6e3743fa52acaf430cbc86ca6.jpg");
                         }
                     </style>
-                    <div class="row" style="height: 550px">
+                    <div class="row" style="height: 380px">
                         <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
                         <div class="col-lg-6">
                             <div class="p-5">

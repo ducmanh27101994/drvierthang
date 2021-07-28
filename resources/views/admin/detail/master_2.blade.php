@@ -80,12 +80,17 @@
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Menu:</h6>
                     <a class="collapse-item" href="{{route('hosobenhnhan.detail', $hosobenhnhan->id)}}">Hành chính</a>
+                    <?php if ($hosobenhnhan->status == "Chỉnh nha" || $hosobenhnhan->status == "Chỉnh nha - Thu thập dữ liệu" ||
+                    $hosobenhnhan->status == "Chỉnh nha - Gửi kế hoạch điều trị" || $hosobenhnhan->status == "Chỉnh nha - Đã gán mắc cài" ||
+                    $hosobenhnhan->status == "Chỉnh nha - Hoàn tất" || $hosobenhnhan->status == "Chỉnh nha - Hủy điều trị"
+                    ): ?>
                     <a class="collapse-item" href="{{route('edit.khamtrongmieng', $hosobenhnhan->id)}}">Khám trong miệng</a>
                     <a class="collapse-item" href="{{route('edit.khamngoaimat', $hosobenhnhan->id)}}">Khám ngoài mặt</a>
                     <a class="collapse-item" href="{{route('edit.tuvantaichinh', $hosobenhnhan->id)}}">Tư vấn</a>
                     <a class="collapse-item" href="{{route('index.phantichphim', $hosobenhnhan->id)}}">Phân tích</a>
-                    <a class="collapse-item" href="{{route('index.kehoachdieutri', $hosobenhnhan->id)}}">Kế hoạch điều trị</a>
                     <a class="collapse-item" href="{{route('index.quatrinhdieutri', $hosobenhnhan->id)}}">Quá trình điều trị</a>
+                    <?php endif; ?>
+                    <a class="collapse-item" href="{{route('index.kehoachdieutri', $hosobenhnhan->id)}}">Kế hoạch điều trị</a>
                     <a class="collapse-item" href="{{route('index.image', $hosobenhnhan->id)}}">Hình ảnh</a>
 
                 </div>

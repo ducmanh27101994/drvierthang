@@ -379,7 +379,17 @@
                     </div>
                 </div>
 
-
+                        <style>
+                            img {
+                                width: 461px;
+                                height: 370px;
+                                object-fit: cover;
+                                padding: 20px;
+                            }
+                            .card-body{
+                                text-align: center;
+                            }
+                        </style>
                 <div class="row">
                     <!-- Content Column -->
                     <div class="col-lg-4 mb-4">
@@ -387,7 +397,7 @@
                         <div class="card shadow mb-4">
                             <div class="card-body">
                                 <a target="_blank" href="{{asset('storage/'.$phantichphim->khac)}}" class="img-16-9 mfp-image gallery-item" style=" text-align: center">
-                                    <img width="90%" height="300px"
+                                    <img
                                          <?php if (!empty($phantichphim->khac)): ?>
                                          src="{{asset('storage/'.$phantichphim->khac)}}"
                                          <?php else: ?>
@@ -405,7 +415,7 @@
                         <div class="card shadow mb-4">
                             <div class="card-body">
                                 <a target="_blank" href="{{asset('storage/'.$phantichphim->xuongbantay)}}" class="img-16-9 mfp-image gallery-item" style="text-align: center">
-                                    <img width="90%" height="300px"
+                                    <img
                                          <?php if (!empty($phantichphim->xuongbantay)): ?>
                                          src="{{asset('storage/'.$phantichphim->xuongbantay)}}"
                                          <?php else: ?>
@@ -423,7 +433,7 @@
                         <div class="card shadow mb-4">
                             <div class="card-body">
                                 <a  target="_blank" href="{{asset('storage/'.$phantichphim->phantichphim)}}" class="img-16-9 mfp-image gallery-item" style="background-image:url(); text-align: center">
-                                    <img width="90%" height="300px"
+                                    <img
                                          <?php if (!empty($phantichphim->phantichphim)): ?>
                                          src="{{asset('storage/'.$phantichphim->phantichphim)}}"
                                          <?php else: ?>
@@ -441,7 +451,7 @@
                         <div class="card shadow mb-4">
                             <div class="card-body">
                                 <a  target="_blank" href="{{asset('storage/'.$phantichphim->phantichmauham)}}" class="img-16-9 mfp-image gallery-item" style="background-image:url(); text-align: center">
-                                    <img width="90%" height="300px"
+                                    <img
                                          <?php if (!empty($phantichphim->phantichmauham)): ?>
                                          src="{{asset('storage/'.$phantichphim->phantichmauham)}}"
                                          <?php else: ?>
@@ -459,7 +469,7 @@
                         <div class="card shadow mb-4">
                             <div class="card-body">
                                 <a  target="_blank" href="{{asset('storage/'.$phantichphim->vto)}}" class="img-16-9 mfp-image gallery-item" style="background-image:url(); text-align: center">
-                                    <img width="90%" height="300px"
+                                    <img
                                          <?php if (!empty($phantichphim->vto)): ?>
                                          src="{{asset('storage/'.$phantichphim->vto)}}"
                                          <?php else: ?>
@@ -477,7 +487,7 @@
                         <div class="card shadow mb-4">
                             <div class="card-body">
                                 <a  target="_blank" href="{{asset('storage/'.$phantichphim->cantroxuong)}}" class="img-16-9 mfp-image gallery-item" style="background-image:url(); text-align: center">
-                                    <img width="90%" height="300px"
+                                    <img
                                          <?php if (!empty($phantichphim->cantroxuong)): ?>
                                          src="{{asset('storage/'.$phantichphim->cantroxuong)}}"
                                          <?php else: ?>

@@ -366,7 +366,9 @@
                                     <option value="Phục hình" style="font-weight: bold">Phục hình</option>
                                     <option value="Phục hình - Đang làm" >-- Đang làm</option>
                                     <option value="Phục hình - Hoàn tất" >-- Hoàn tất</option>
-
+                                    <option value="Implant" style="font-weight: bold">Implant</option>
+                                    <option value="Nội nha" style="font-weight: bold">Nội nha</option>
+                                    <option value="Nha chu" style="font-weight: bold">Nha chu</option>
                                     <option value="Tổng quát" style="font-weight: bold">Tổng quát</option>
                                     <option value="Tẩy trắng" >-- Tẩy trắng</option>
                                     <option value="Trám răng" >-- Trám răng</option>

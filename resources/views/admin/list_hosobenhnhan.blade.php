@@ -117,7 +117,13 @@
                     </div>
                 </div>
 
-
+                <style>
+                    img {
+                        width: 70px;
+                        height: 70px;
+                        object-fit: cover;
+                    }
+                </style>
 
                 <!-- Content Row -->
                 <div class="row">
@@ -152,7 +158,7 @@
                                                 <td style="text-align: center">{{++$key}}</td>
                                                 <td style="text-align: center">
                                                     <a href="{{asset('storage/'.$value->image)}}" target="_blank">
-                                                    <img style="height: 50px" src="{{asset('storage/'.$value->image)}}" alt="">
+                                                    <img src="{{asset('storage/'.$value->image)}}" alt="">
                                                     </a>
                                                 </td>
                                                 <td style="text-align: center; ">

@@ -1,7 +1,14 @@
 @extends('admin.detail.master_2')
 @section('content_detail')
 
-
+    <style>
+        img {
+            width: 180px;
+            height: 200px;
+            object-fit: cover;
+            padding: 20px;
+        }
+    </style>
     <div id="content-wrapper" class="d-flex flex-column">
 
         <!-- Main Content -->
@@ -16,10 +23,17 @@
                 </button>
                 <?php if (\Illuminate\Support\Facades\Session::get('loginAuth') == 'drvietthang@gmail.com'): ?>
                 <a href="{{route('hosobenhnhan')}}" type="button" class="btn btn-danger" style="background-color: #7e1d0c">Tạo hồ sơ mới</a>
+                <button style="background-color: #ededed; color: #f72117; margin-left: 20px"
+                        class="btn show-hide-total-top-ten text-right"
+                        data-toggle="modal"
+                        data-target="#addnewModal_pdf">
+                    Export PDF
+                </button>
+
             <?php endif; ?>
                 <!-- Topbar Search -->
 
-
+{{--                <a type="button" target="_blank" href="{{route('pdf', $hosobenhnhan->id)}}" class="btn btn-secondary mb-2">Export PDF</a>--}}
                 <!-- Topbar Navbar -->
                 <ul class="navbar-nav ml-auto">
 
@@ -64,7 +78,7 @@
                     <h1 class="h3 mb-0 text-gray-800">Hành chính</h1>
 
                     <a href="{{asset('storage/'.$hosobenhnhan->image)}}" target="_blank">
-                        <img style="height: 100px" src="{{asset('storage/'.$hosobenhnhan->image)}}" alt="">
+                        <img src="{{asset('storage/'.$hosobenhnhan->image)}}" alt="">
                     </a>
                 </div>
 
@@ -378,6 +392,10 @@
                                         <option value="Phục hình - Đang làm" <?= $hosobenhnhan->status == "Phục hình - Đang làm" ? "selected" : "" ?>>-- Đang làm</option>
                                         <option value="Phục hình - Hoàn tất" <?= $hosobenhnhan->status == "Phục hình - Hoàn tất" ? "selected" : "" ?>>-- Hoàn tất</option>
 
+                                        <option value="Implant" style="font-weight: bold" <?= $hosobenhnhan->status == "Implant" ? "selected" : "" ?>>Implant</option>
+                                        <option value="Nội nha" style="font-weight: bold" <?= $hosobenhnhan->status == "Nội nha" ? "selected" : "" ?>>Nội nha</option>
+                                        <option value="Nha chu" style="font-weight: bold" <?= $hosobenhnhan->status == "Nha chu" ? "selected" : "" ?>>Nha chu</option>
+
                                         <option value="Tổng quát" style="font-weight: bold" <?= $hosobenhnhan->status == "Tổng quát" ? "selected" : "" ?>>Tổng quát</option>
                                         <option value="Tẩy trắng" <?= $hosobenhnhan->status == "Tẩy trắng" ? "selected" : "" ?>>-- Tẩy trắng</option>
                                         <option value="Trám răng" <?= $hosobenhnhan->status == "Trám răng" ? "selected" : "" ?>>-- Trám răng</option>
@@ -483,6 +501,92 @@
         <!-- End of Footer -->
 
     </div>
+{{--    <a type="button" target="_blank" href="{{route('pdf', $hosobenhnhan->id)}}" class="btn btn-secondary mb-2">Export PDF</a>--}}
+    <div id="addnewModal_pdf" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Xuất hồ sơ</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form method="post" action="{{route('pdf', $hosobenhnhan->id)}}" enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="Hành chính" id=""
+                                   name="pdf[]" checked>
+                            <label class="form-check-label" for="defaultCheck1">
+                                Hành chính
+                            </label>
+                        </div>
+                        <?php if ($hosobenhnhan->status == "Chỉnh nha" || $hosobenhnhan->status == "Chỉnh nha - Thu thập dữ liệu" ||
+                        $hosobenhnhan->status == "Chỉnh nha - Gửi kế hoạch điều trị" || $hosobenhnhan->status == "Chỉnh nha - Đã gán mắc cài" ||
+                        $hosobenhnhan->status == "Chỉnh nha - Hoàn tất" || $hosobenhnhan->status == "Chỉnh nha - Hủy điều trị"
+                        ): ?>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="Khám trong miệng" id=""
+                                   name="pdf[]" checked>
+                            <label class="form-check-label" for="defaultCheck1">
+                                Khám trong miệng
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value=" Khám ngoài mặt" id=""
+                                   name="pdf[]" checked>
+                            <label class="form-check-label" for="defaultCheck1">
+                                Khám ngoài mặt
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="Tư Vấn" id=""
+                                   name="pdf[]" checked>
+                            <label class="form-check-label" for="defaultCheck1">
+                                Tư Vấn
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="Phân tích" id=""
+                                   name="pdf[]" checked>
+                            <label class="form-check-label" for="defaultCheck1">
+                                Phân tích
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="Quá trình điều trị" id=""
+                                   name="pdf[]" checked>
+                            <label class="form-check-label" for="defaultCheck1">
+                                Quá trình điều trị
+                            </label>
+                        </div>
+                        <?php endif; ?>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="Kế hoạch điều trị" id=""
+                                   name="pdf[]" checked>
+                            <label class="form-check-label" for="defaultCheck1">
+                                Kế hoạch điều trị
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="Hình ảnh" id=""
+                                   name="pdf[]" checked>
+                            <label class="form-check-label" for="defaultCheck1">
+                                Hình ảnh
+                            </label>
+                        </div>
+                    </div>
 
+                    <div class="modal-footer">
+                        <?php if (\Illuminate\Support\Facades\Session::get('loginAuth') == 'drvietthang@gmail.com'): ?>
+                        <button type="submit" class="btn " style="background-color: #7e1d0c; color: white">Xuất PDF
+                        </button>
+                        <?php endif; ?>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
 @endsection

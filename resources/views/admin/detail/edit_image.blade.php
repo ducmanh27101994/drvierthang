@@ -58,32 +58,66 @@
                             class="btn show-hide-total-top-ten text-right"
                             data-toggle="modal"
                             data-target="#addnewModal_guihoso">
-                        Thêm hình ảnh
+                        Thêm albums
                     </button>
                 </div>
+                <style>
+                    img {
+                        width: 461px;
+                        height: 370px;
+                        object-fit: cover;
+                        padding: 20px;
+                    }
 
+                </style>
                 <!-- Content Row -->
                 <div class="row">
                     <!-- Content Column -->
-                    <?php if (!empty($images)): ?>
-                    <?php foreach ($images as $value): ?>
-                    <div class="col-lg-4 mb-4">
-
+                    <?php if (!empty($albums)): ?>
+                    <div class="col-lg-12 mb-4">
                         <div class="card shadow mb-4">
-                             <div class="card-body">
-                                    <a  target="_blank" href="{{asset('storage/'.$value->image)}}" class="img-16-9 mfp-image gallery-item" style="background-image:url({{asset('storage/'.$value->image)}}); text-align: center">
-                                        <img width="90%" height="250px" src="{{asset('storage/'.$value->image)}}">
-                                    </a>
-                                     <div style="text-align: center"><?= $value->created_at ?></div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-2">
+                                        <div class="list-group" id="list-tab" role="tablist">
+                                            <?php foreach ($albums as $key => $value): ?>
+                                            <form ></form>
+                                            <a class="list-group-item list-group-item-action " id=""
+                                               href="{{route('list.image',[$hosobenhnhan->id, $value->id])}}" role="tab"
+                                            >{{$value->name}}</a>
+                                            <?php endforeach; ?>
+                                        </div>
+                                    </div>
+                                    <?php if (!empty($image)): ?>
+
+                                    <div class="col-10" style="text-align: center;background-color: #f2f2f2">
+                                        <?php foreach ($image as $item): ?>
+                                        <a target="_blank" href="{{asset('storage/'.$item->image)}}">
+                                            <img src="{{asset('storage/'.$item->image)}}">
+                                        </a>
+
+                                        <?php endforeach; ?>
+
+                                    </div>
+                                    <?php endif; ?>
+
+
                                 </div>
+
+                            </div>
                         </div>
 
                     </div>
-                    <?php endforeach; ?>
                     <?php endif; ?>
+
                 </div>
 
-
+                <button style="background-color: #7e1d0c; color: white"
+                        class="btn show-hide-total-top-ten text-right"
+                        data-toggle="modal"
+                        data-target="#addnewModal_update">
+                    Uploads Ảnh
+                </button>
                 <!-- End of Main Content -->
 
                 <!-- Footer -->
@@ -104,19 +138,20 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Thêm hình ảnh</h5>
+                    <h5 class="modal-title">Thêm albums</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form method="post" action="{{route('store.image')}}" enctype="multipart/form-data">
+                <form method="post" action="{{route('store.albums')}}" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
                         <div>
                             <div>
-                                <label for="exampleFormControlFile1">Ảnh bệnh nhân</label>
-                                <input name="image" type="file" class="form-control-file" id="">
+                                <label for="exampleFormControlFile1">Tên albums</label>
+                                <input name="name" type="text" class="form-control" id="" required>
                             </div>
+                            <br>
                             <input type="hidden" name="hosobenhnhan_id"
                                    value="<?= !empty($hosobenhnhan->id) ? $hosobenhnhan->id : "" ?>">
                         </div>
@@ -126,7 +161,51 @@
                         <?php if (\Illuminate\Support\Facades\Session::get('loginAuth') == 'drvietthang@gmail.com'): ?>
                         <button type="submit" class="btn " style="background-color: #7e1d0c; color: white">Thêm mới
                         </button>
-                            <?php endif; ?>
+                        <?php endif; ?>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="addnewModal_update" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Thêm albums</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form method="post" action="{{route('store.image')}}" enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-body">
+                        <div>
+                            <div>
+                                <label for="exampleFormControlFile1">Chọn albums</label>
+                                <select class="form-control" name="album_id" required>
+                                    <?php if (!empty($albums)): ?>
+                                    <?php foreach ($albums as $item): ?>
+                                    <option value="<?= $item->id ?>"><?= $item->name ?></option>
+                                    <?php endforeach; ?><?php endif; ?>
+                                </select>
+                            </div>
+                            <br>
+                            <div>
+                                <label for="exampleFormControlFile1">Upload ảnh</label>
+                                <input name="images[]" class="form-control-file" multiple="multiple" type="file"
+                                       required>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <?php if (\Illuminate\Support\Facades\Session::get('loginAuth') == 'drvietthang@gmail.com'): ?>
+                        <button type="submit" class="btn " style="background-color: #7e1d0c; color: white">Thêm mới
+                        </button>
+                        <?php endif; ?>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
                     </div>
                 </form>
