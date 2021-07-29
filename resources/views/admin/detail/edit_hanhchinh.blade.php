@@ -78,7 +78,11 @@
                     <h1 class="h3 mb-0 text-gray-800">Hành chính</h1>
 
                     <a href="{{asset('storage/'.$hosobenhnhan->image)}}" target="_blank">
+                        <?php if (!empty($hosobenhnhan->image)): ?>
                         <img src="{{asset('storage/'.$hosobenhnhan->image)}}" alt="">
+                    <?php else: ?>
+                        <img src="https://thinkingschool.vn/wp-content/uploads/avatars/753/753-bpfull.jpg" alt="">
+                        <?php endif; ?>
                     </a>
                 </div>
 

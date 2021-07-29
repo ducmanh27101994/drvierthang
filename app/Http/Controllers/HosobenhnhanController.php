@@ -781,9 +781,6 @@ class HosobenhnhanController extends Controller
 //            $arr += [$value->name => $image];
 //        }
 
-
-
-
         if (!empty($request->pdf)){
             $check_pdf = $request->pdf;
         } else {

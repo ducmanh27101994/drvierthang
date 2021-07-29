@@ -100,6 +100,10 @@
                                 <option value="Phục hình - Đang làm" <?= !empty($status) && $status == "Phục hình - Đang làm" ? "selected" : '' ?>>-- Đang làm</option>
                                 <option value="Phục hình - Hoàn tất" <?= !empty($status) && $status == "Phục hình - Hoàn tất" ? "selected" : '' ?>>-- Hoàn tất</option>
 
+                                <option value="Implant" style="font-weight: bold" <?= !empty($status) && $status == "Implant" ? "selected" : '' ?>>Implant</option>
+                                <option value="Nội nha" style="font-weight: bold" <?= !empty($status) && $status == "Nội nha" ? "selected" : '' ?>>Nội nha</option>
+                                <option value="Nha chu" style="font-weight: bold" <?= !empty($status) && $status == "Nha chu" ? "selected" : '' ?>>Nha chu</option>
+
                                 <option value="Tổng quát" style="font-weight: bold"<?= !empty($status) && $status == "Tổng quát" ? "selected" : '' ?>>Tổng quát</option>
                                 <option value="Tẩy trắng" <?= !empty($status) && $status == "Tẩy trắng" ? "selected" : '' ?>>-- Tẩy trắng</option>
                                 <option value="Trám răng" <?= !empty($status) && $status == "Trám răng" ? "selected" : '' ?>>-- Trám răng</option>
@@ -158,7 +162,11 @@
                                                 <td style="text-align: center">{{++$key}}</td>
                                                 <td style="text-align: center">
                                                     <a href="{{asset('storage/'.$value->image)}}" target="_blank">
+                                                        <?php if (!empty($value->image)): ?>
                                                     <img src="{{asset('storage/'.$value->image)}}" alt="">
+                                                            <?php else: ?>
+                                                            <img src="https://thinkingschool.vn/wp-content/uploads/avatars/753/753-bpfull.jpg" alt="">
+                                                            <?php endif; ?>
                                                     </a>
                                                 </td>
                                                 <td style="text-align: center; ">

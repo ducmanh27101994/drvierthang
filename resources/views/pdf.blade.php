@@ -7,7 +7,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <style>
         body {
-            font-family: DejaVu Sans;
+            font-family: DejaVu Sans, sans-serif;;
             font-size: 11px;
         }
 
@@ -418,7 +418,11 @@
 <table class="table">
     <tr>
         <th>Góc mũi môi:</th>
-        <td><?= !empty($khamngoaimat->knm_gocmuimoi) ? $khamngoaimat->knm_gocmuimoi : "" ?></td>
+
+        <td><?= !empty($khamngoaimat->knm_gocmuimoi) && $khamngoaimat->knm_gocmuimoi != "< 90" ? $khamngoaimat->knm_gocmuimoi : "" ?>
+            <?= !empty($khamngoaimat->knm_gocmuimoi) && $khamngoaimat->knm_gocmuimoi == "< 90" ? "Nhỏ hơn 90" : "" ?>
+
+        </td>
         <th>Cung cười:</th>
         <td><?= !empty($khamngoaimat->knm_cungcuoi) ? $khamngoaimat->knm_cungcuoi : "" ?></td>
     </tr>
@@ -1149,24 +1153,48 @@
         <th style="text-align: center">Xương bàn tay</th>
     </tr>
    <tr>
-       <td style="text-align: center"><img src="{{asset('storage/'.$phantichphim->khac)}}" alt=""></td>
-       <td style="text-align: center"><img src="{{asset('storage/'.$phantichphim->xuongbantay)}}" alt=""></td>
+       <td style="text-align: center">
+           <?php if (!empty($phantichphim->khac)): ?>
+           <img src="{{asset('storage/'.$phantichphim->khac)}}" alt="">
+               <?php endif; ?>
+       </td>
+       <td style="text-align: center">
+           <?php if (!empty($phantichphim->xuongbantay)): ?>
+           <img src="{{asset('storage/'.$phantichphim->xuongbantay)}}" alt="">
+               <?php endif; ?>
+       </td>
    </tr>
     <tr>
         <th style="text-align: center">Phân tích mẫu hàm</th>
         <th style="text-align: center">VTO</th>
     </tr>
     <tr>
-        <td style="text-align: center"><img src="{{asset('storage/'.$phantichphim->phantichmauham)}}" alt=""></td>
-        <td style="text-align: center"><img src="{{asset('storage/'.$phantichphim->vto)}}" alt=""></td>
+        <td style="text-align: center">
+            <?php if (!empty($phantichphim->phantichmauham)): ?>
+            <img src="{{asset('storage/'.$phantichphim->phantichmauham)}}" alt="">
+                <?php endif; ?>
+        </td>
+        <td style="text-align: center">
+            <?php if (!empty($phantichphim->vto)): ?>
+            <img src="{{asset('storage/'.$phantichphim->vto)}}" alt="">
+                <?php endif; ?>
+        </td>
     </tr>
     <tr>
         <th style="text-align: center">Cản trở xương</th>
         <th style="text-align: center">Phân tích phim</th>
     </tr>
     <tr>
-        <td style="text-align: center"><img src="{{asset('storage/'.$phantichphim->phantichphim)}}" alt=""></td>
-        <td style="text-align: center"><img src="{{asset('storage/'.$phantichphim->cantroxuong)}}" alt=""></td>
+        <td style="text-align: center">
+            <?php if (!empty($phantichphim->phantichphim)): ?>
+            <img src="{{asset('storage/'.$phantichphim->phantichphim)}}" alt="">
+                <?php endif; ?>
+        </td>
+        <td style="text-align: center">
+            <?php if (!empty($phantichphim->cantroxuong)): ?>
+            <img src="{{asset('storage/'.$phantichphim->cantroxuong)}}" alt="">
+                <?php endif; ?>
+        </td>
     </tr>
 
 
