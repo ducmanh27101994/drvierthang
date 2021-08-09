@@ -95,7 +95,7 @@
                                         <a target="_blank" href="{{asset('storage/'.$item->image)}}">
                                             <img src="{{asset('storage/'.$item->image)}}">
                                         </a>
-
+                                            <a onclick="return confirm('Bạn chắc chắn muốn xóa ảnh này?')" href="{{route('delete.image', $item->id)}}" class="position-absolute" style="color: red; margin-left: -46px; margin-top: 27px; font-weight: bold"><i class="fa fa-trash" aria-hidden="true"></i></a>
                                         <?php endforeach; ?>
 
                                     </div>

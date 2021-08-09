@@ -73,6 +73,9 @@ Route::middleware([\App\Http\Middleware\checkLogin::class])->prefix('/')->group(
     Route::post('/pdf/{id}', [\App\Http\Controllers\HosobenhnhanController::class,'pdf'])->name('pdf');
     Route::get('/view_test/{id}', [\App\Http\Controllers\HosobenhnhanController::class,'view_test'])->name('view_test');
 
+    Route::get('/delete_image/{id}', [\App\Http\Controllers\HosobenhnhanController::class,'delete_image'])->name('delete.image');
+    Route::get('/delete_hosobenhnhan/{id}', [\App\Http\Controllers\HosobenhnhanController::class,'delete_hosobenhnhan'])->name('delete.hosobenhnhan');
+
 
 
 });

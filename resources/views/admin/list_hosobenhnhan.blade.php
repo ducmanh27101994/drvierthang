@@ -153,6 +153,7 @@
                                                 <th scope="col" style="text-align: center">Số điện thoại</th>
                                                 <th scope="col" style="text-align: center">Ngày khám</th>
                                                 <th scope="col" style="text-align: center">Trạng thái</th>
+                                                <th scope="col" style="text-align: center"></th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -179,6 +180,7 @@
                                                 <td style="text-align: center">{{$value->phone}}</td>
                                                 <td style="text-align: center">{{date('d/m/Y', strtotime($value->date_start))}}</td>
                                                 <td style="text-align: center">{{$value->status}}</td>
+                                                <td style="text-align: center"><a onclick="return confirm('Bạn chắc chắn muốn xóa?')" style="color: red" href="{{route('delete.hosobenhnhan', $value->id)}}"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
                                             </tr>
                                                 @endforeach
                                             @endif

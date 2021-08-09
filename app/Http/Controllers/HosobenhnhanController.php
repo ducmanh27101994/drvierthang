@@ -794,5 +794,49 @@ class HosobenhnhanController extends Controller
         return $pdf->download('Hồ Sơ Bệnh Nhân.pdf');
     }
 
+    public function delete_image($id){
+
+        $photo = Photos::findOrFail($id);
+        $photo->delete();
+
+        toastr()->success('Xóa ảnh thành công', 'Thành Công !');
+        return back();
+
+    }
+
+    public function delete_hosobenhnhan($id){
+
+        $hosobenhnhan = Hosobenhnhan::findOrFail($id);
+
+        $albums = DB::table('albums')->select('*')->where('hosobenhnhan_id','=',"$id")->get();
+
+        if (!empty($albums)){
+            foreach ($albums as $album){
+                $photo = DB::table('photo')->select('*')->where('album_id','=',"$album->id")->get();
+                if (!empty($photo)){
+                    foreach ($photo as $value){
+                        DB::delete('delete from photo where album_id= ?',[$value->album_id]);
+                    }
+                }
+
+                DB::delete('delete from albums where id= ?',[$album->id]);
+            }
+        }
+
+        $quatrinhdieutri = DB::table('quatrinhdieutri')->select('*')->where('hosobenhnhan_id','=',"$id")->get();
+        if (!empty($quatrinhdieutri)){
+            DB::delete('delete from quatrinhdieutri where hosobenhnhan_id= ?',[$id]);
+        }
+        $tuvantaichinh = DB::table('tuvantaichinh')->select('*')->where('hosobenhnhan_id','=',"$id")->get();
+        if (!empty($tuvantaichinh)){
+            DB::delete('delete from tuvantaichinh where hosobenhnhan_id= ?',[$id]);
+        }
+        $hosobenhnhan->delete();
+
+        toastr()->success('Xóa hồ sơ thành công', 'Thành Công !');
+        return back();
+
+    }
+
 
 }

@@ -15,4 +15,8 @@ class Hosobenhnhan extends Model
     {
         return $this->hasMany(Tuvantaichinh::class);
     }
+
+    public function albums(){
+        return $this->belongsTo(Albums::class);
+    }
 }
